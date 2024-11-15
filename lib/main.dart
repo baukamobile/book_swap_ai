@@ -8,8 +8,15 @@ import 'package:book_swap_ai/pages/home_page.dart';
 import 'package:book_swap_ai/pages/profile.dart';
 import 'consts.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-void main() async{
-  await dotenv.load();
+import 'package:flutter_gemini/flutter_gemini.dart';
+void main() 
+async {
+  // await dotenv.load(); // Load .env file
+  Gemini.init(
+  apiKey: GEMINI_API_KEY,
+  );
+  // initializeGemini(); 
+  // Gemini.init(apiKey: dotenv.env['GEMINI_API_KEY']!);
   runApp(const MyApp());
 }
 
@@ -19,14 +26,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
+      debugShowCheckedModeBanner: true,
+      // theme: ThemeData(
         
-          scaffoldBackgroundColor: scaffoldBackgroundColor,
-          appBarTheme: AppBarTheme(
-            color: cardColor,
-          )),
-      home: const Chatting(),
+      //     // scaffoldBackgroundColor: scaffoldBackgroundColor,
+      //     appBarTheme: AppBarTheme(
+      //       // color: cardColor,
+      //     )),
+      home: const GeminiChat(),
     );
   }
 }
