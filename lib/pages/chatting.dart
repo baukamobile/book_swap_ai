@@ -1,4 +1,5 @@
 import 'package:book_swap_ai/components/models/services.dart';
+
 import 'package:book_swap_ai/consts.dart';
 import 'package:book_swap_ai/widgets/chat_widget.dart';
 import 'package:book_swap_ai/widgets/text_widget.dart';
@@ -131,33 +132,7 @@ class _ChattingState extends State<Chatting> {
     return Scaffold(
       appBar: AppBar(
         actions: [
-          IconButton(onPressed: ()async{
-            await showModalBottomSheet(
-              backgroundColor: scaffoldBackgroundColor,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.vertical(
-                  top: Radius.circular(20)
-                )
-              ),
-              context: context,
-               builder: (context){
-              return Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Flexible(child: TextWidget(label: "Chosen Model: ",
-                    color: Colors.white,
-                    
-                    fontSize: 18,
-                    ),
-                    
-                    ),
-                  )
-                ],
-              );
-            },
-            );
-          }, icon: Icon(Icons.more_vert_rounded,color: Colors.white,))
+        
         ],
         title: Text("Chat Gpt", style: TextStyle(
           color: Colors.white
