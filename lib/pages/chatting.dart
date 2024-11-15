@@ -250,9 +250,17 @@ class _GeminiChatState extends State<GeminiChat> {
       String question = chatMessage.text;
       gemini.streamGenerateContent(question).listen(
         (event) {
+          ChatMessage? lastMessage = messages.firstOrNull;
           // Only add response if it's from Gemini and it's not the last message
-          if (messages.isNotEmpty && messages.first.user == geminiUser) {
-            return; // Don't repeat last response
+          if (lastMessage!=null &&lastMessage.user==gemini) {
+            // && messages.isNotEmpty && messages.first.user == geminiUser
+            // return; // Don't repeat last response
+            lastMessage = messages.removeAt(0);
+            String response = event.content?.parts?.fold("", (previous, current) => "$previous$current") ?? "";
+            lastMessage.text = response;
+            setState(() {
+              messages = [lastMessage!,...messages];
+            });
           }
 
           String response = event.content?.parts?.fold("", (previous, current) => "$previous$current") ?? "";
