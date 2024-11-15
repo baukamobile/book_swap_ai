@@ -1,3 +1,6 @@
+import 'package:book_swap_ai/components/bottomnavbar.dart';
+import 'package:book_swap_ai/main.dart';
+import 'package:book_swap_ai/pages/auth/login_page.dart';
 import 'package:book_swap_ai/pages/auth/register_page.dart';
 import 'package:flutter/material.dart';
 
@@ -10,6 +13,11 @@ class ProfilePage extends StatefulWidget {
 
 
 class _ProfilePageState extends State<ProfilePage> {
+  String name = "Tom";
+  String email = "tom@gmail.com";
+  var phoneNumber = 77775456787;
+
+
   void register(context){
     Navigator.push(
       context,
@@ -18,13 +26,80 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: TextButton(onPressed: (){
-                        register(context);
-                      }, child: Text("Register", style: TextStyle(
-                        color: Colors.green,
-                      ),)),
-      ),
+      // backgroundColor: Colors.white,
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: ListView(
+          children: [
+              Container(
+            child: Align(
+              alignment: Alignment.topRight,
+              child: IconButton(onPressed: (){
+                Navigator.push(context,MaterialPageRoute(builder: (context)=>LoginPage()));
+              }, icon: Icon(Icons.exit_to_app))),
+          ),
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    width: 200,
+                    height: 200,
+                    child:Image(image: AssetImage('assets/img/avtr.jpg')),
+                    //  Image.asset('assets/img/avtr.jpg')
+                    ),
+                
+              // const SizedBox(height: 20,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Row(
+                    children: [
+                      Text('Name:'),
+                  Text("$name"),
+                    ],
+                  ),
+                  IconButton(onPressed: (){}, icon: Icon(Icons.edit)),
+                ],
+              ),
+              const SizedBox(height: 5,),
+              Row(
+                // crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Row(
+                    children: [
+                      Text('Email:'),
+                  Text("$email"),
+                    ],
+                  ),
+                  IconButton(onPressed: (){}, icon: Icon(Icons.edit)),
+                ],
+              ),
+              const SizedBox(height: 5,),
+              Row(
+                // crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Row(
+                    children: [
+                      Text('Phone Number:'),
+                  Text("$phoneNumber"),
+                    ],
+                  ),
+                  IconButton(onPressed: (){}, icon: Icon(Icons.edit)),
+                ],
+              ),
+              const SizedBox(height: 20,),
+                        ],
+              ),
+            ),
+          ]
+        ),
+      )
+      
+    // bottomNavigationBar: Bottomnavbar(),
+
     );
   }
 }

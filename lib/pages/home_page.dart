@@ -1,82 +1,18 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-// import 'package:video_player/video_player.dart';
-
-// class HomePage extends StatefulWidget {
-//   const HomePage({super.key});
-
-//   @override
-//   _HomePageState createState() => _HomePageState();
-// }
-
-// class _HomePageState extends State<HomePage> {
-//   late VideoPlayerController _controller;
-//   bool _isPlaying = false;
-
-//   @override
-//   void initState() {
-//     super.initState();
-//     // Initialize the controller with your video file (local asset or network)
-//     _controller = VideoPlayerController.asset('assets/videos/book1.mp4')
-//       ..initialize().then((_) {
-//         // Ensure the first frame is shown
-//         setState(() {});
-//       });
-//   }
-
-//   @override
-//   void dispose() {
-//     super.dispose();
-//     // Dispose of the controller when the widget is disposed
-//     _controller.dispose();
-//   }
-
-//   void _playPause() {
-//     setState(() {
-//       if (_isPlaying) {
-//         _controller.pause();
-//       } else {
-//         _controller.play();
-//       }
-//       _isPlaying = !_isPlaying;
-//     });
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       // appBar: AppBar(title: const Text('Video Player')),
-//       body: Center(
-//         child: Column(
-//           mainAxisAlignment: MainAxisAlignment.center,
-//           children: <Widget>[
-//             // Display the video player if initialized
-//             _controller.value.isInitialized
-//                 ? AspectRatio(
-//                     aspectRatio: _controller.value.aspectRatio,
-//                     child: VideoPlayer(_controller),
-//                   )
-//                 : const CircularProgressIndicator(),
-//             const SizedBox(height: 20),
-//             // Play/Pause Button
-//             IconButton(
-//               icon: Icon(
-//                 _isPlaying ? Icons.pause : Icons.play_arrow,
-//                 size: 50,
-//               ),
-//               onPressed: _playPause,
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-// void main() {
-//   runApp(const MaterialApp(
-//     home: HomePage(),
-//   ));
-// }
+// import 'package:example/content.dart';
+import 'package:swipe_cards/draggable_card.dart';
+import 'package:swipe_cards/swipe_cards.dart';
+import 'dart:math';
+class Content {
+  final String text;
+  // final Color color;
+  final Image img;
+  Content({
+    required this.text,
+    //  required this.color,
+      required this.img});
+}
 
 class HomePage extends StatefulWidget {
   const   HomePage({super.key});
@@ -86,10 +22,162 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  List<SwipeItem> _swipeItems = <SwipeItem>[];
+  MatchEngine? _matchEngine;
+  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+  List<String> _names = [
+    "Red",
+    "Blue",
+    "Green",
+    "Yellow",
+    "Orange",
+    "Grey",
+    "Purple",
+    "Pink"
+  ];
+  List<Image> _imgname = [
+    //  Image(image: AssetImage('assets/videos/book1.mp4',)),
+    // Image(image: AssetImage('assets/img/ai.jpg')),
+    Image(image: AssetImage('assets/img/tom.jpg')),
+    Image(image: AssetImage('assets/img/tom.jpg')),
+    Image(image: AssetImage('assets/img/hamlet.jpg')),
+    Image(image: AssetImage('assets/img/prideprejudes.jpg')),
+    Image(image: AssetImage('assets/img/crimepunishment.jpg')),
+    Image(image: AssetImage('assets/img/warpeace.jpg')),
+  ];
+
+  List<Color> _colors = [
+    Colors.red,
+    Colors.blue,
+    Colors.green,
+    Colors.yellow,
+    Colors.orange,
+    Colors.grey,
+    Colors.purple,
+    Colors.pink
+  ];
+  
+
+ 
+
+void initState() {
+  int minLength = min(_names.length, _imgname.length); // Get the smaller length
+  for (int i = 0; i < minLength; i++) {
+    _swipeItems.add(SwipeItem(
+      content: Content(
+        text: _names[i],
+        img: _imgname[i], // Use the corresponding image
+      ),
+      likeAction: () {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text("Liked ${_names[i]}"),
+          duration: Duration(milliseconds: 500),
+        ));
+      },
+      nopeAction: () {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text("Nope ${_names[i]}"),
+          duration: Duration(milliseconds: 500),
+        ));
+      },
+      superlikeAction: () {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text("Superliked ${_names[i]}"),
+          duration: Duration(milliseconds: 500),
+        ));
+      },
+      onSlideUpdate: (SlideRegion? region) async {
+        print("Region $region");
+      },
+    ));
+  }
+
+  _matchEngine = MatchEngine(swipeItems: _swipeItems);
+  super.initState();
+}
+
+ 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Text("d"),
+
+    key: _scaffoldKey,
+        body: Container(
+            child: Stack(children: [
+          Container(
+            height: MediaQuery.of(context).size.height - kToolbarHeight,
+            child: SwipeCards(
+              matchEngine: _matchEngine!,
+              itemBuilder: (BuildContext context, int index) {
+  return Container(
+    alignment: Alignment.center,
+    child: _swipeItems[index].content.img,  // Display the image here
+  );
+},
+
+              onStackFinished: () {
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content: Text("Stack Finished"),
+                  duration: Duration(milliseconds: 500),
+                ));
+              },
+              itemChanged: (SwipeItem item, int index) {
+                print("item: ${item.content.text}, index: $index");
+              },
+              leftSwipeAllowed: true,
+              rightSwipeAllowed: true,
+              upSwipeAllowed: true,
+              fillSpace: true,
+              likeTag: Container(
+                margin: const EdgeInsets.all(15.0),
+                padding: const EdgeInsets.all(3.0),
+                decoration: BoxDecoration(
+                    border: Border.all(color: Colors.green)
+                ),
+                child: Text('Like'),
+              ),
+              nopeTag: Container(
+                margin: const EdgeInsets.all(15.0),
+                padding: const EdgeInsets.all(3.0),
+                decoration: BoxDecoration(
+                    border: Border.all(color: Colors.red)
+                ),
+                child: Text('Nope'),
+              ),
+              superLikeTag: Container(
+                margin: const EdgeInsets.all(15.0),
+                padding: const EdgeInsets.all(3.0),
+                decoration: BoxDecoration(
+                    border: Border.all(color: Colors.orange)
+                ),
+                child: Text('Super Like'),
+              ),
+            ),
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ElevatedButton(
+                    onPressed: () {
+                      _matchEngine!.currentItem?.nope();
+                    },
+                    child: Text("Nope")),
+                ElevatedButton(
+                    onPressed: () {
+                      _matchEngine!.currentItem?.superLike();
+                    },
+                    child: Text("Superlike")),
+                ElevatedButton(
+                    onPressed: () {
+                      _matchEngine!.currentItem?.like();
+                    },
+                    child: Text("Like"))
+              ],
+            ),
+          )
+        ]))
     );
   }
 }
