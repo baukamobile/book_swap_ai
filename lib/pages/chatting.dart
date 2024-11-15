@@ -1,3 +1,6 @@
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:book_swap_ai/components/models/services.dart';
 
 import 'package:book_swap_ai/consts.dart';
@@ -207,6 +210,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter/material.dart';
 import 'package:dash_chat_2/dash_chat_2.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
+import 'package:image_picker/image_picker.dart';
 
 class GeminiChat extends StatefulWidget {
   const GeminiChat({super.key});
@@ -235,6 +239,14 @@ class _GeminiChatState extends State<GeminiChat> {
 
   Widget _buildUI() {
     return DashChat(
+      inputOptions: InputOptions(
+        trailing: [
+          IconButton(onPressed: (){
+            _sendMediaMessage();
+
+          }, icon: Icon(Icons.image))
+        ]
+      ),
       currentUser: currentUser,
       onSend: _sendMessage,
       messages: messages,
@@ -248,7 +260,13 @@ class _GeminiChatState extends State<GeminiChat> {
 
     try {
       String question = chatMessage.text;
-      gemini.streamGenerateContent(question).listen(
+      List<Uint8List>? images;
+      if(chatMessage.medias?.isNotEmpty ?? false){
+        images = [
+          File(chatMessage.medias!.first.url).readAsBytesSync(),
+          ];
+      }
+      gemini.streamGenerateContent(question, images: images).listen(
         (event) {
           ChatMessage? lastMessage = messages.firstOrNull;
           // Only add response if it's from Gemini and it's not the last message
@@ -256,14 +274,14 @@ class _GeminiChatState extends State<GeminiChat> {
             // && messages.isNotEmpty && messages.first.user == geminiUser
             // return; // Don't repeat last response
             lastMessage = messages.removeAt(0);
-            String response = event.content?.parts?.fold("", (previous, current) => "$previous$current") ?? "";
-            lastMessage.text = response;
+            String response = event.content?.parts?.fold("", (previous, current) => "$previous ${current.text}") ?? "";
+            lastMessage.text += response;
             setState(() {
               messages = [lastMessage!,...messages];
             });
           }
 
-          String response = event.content?.parts?.fold("", (previous, current) => "$previous$current") ?? "";
+          String response = event.content?.parts?.fold("", (previous, current) => "$previous ${current.text}") ?? "";
           ChatMessage geminiResponse = ChatMessage(
             user: geminiUser,
             createdAt: DateTime.now(),
@@ -280,6 +298,24 @@ class _GeminiChatState extends State<GeminiChat> {
       );
     } catch (e) {
       print("Error sending message: $e");
+    }
+  }
+  void _sendMediaMessage() async{
+    ImagePicker picker = ImagePicker();
+    XFile? file = await picker.pickImage(
+      source: ImageSource.gallery,
+    );
+    if (file!=null){
+      ChatMessage chatMessage = ChatMessage(
+        user: currentUser, 
+        createdAt: DateTime.now(),
+       text: "Describe this picture!",
+        medias: [
+          ChatMedia(url: file.path, 
+          fileName: "",
+           type: MediaType.image)]);
+           _sendMessage(chatMessage);
+
     }
   }
 }
