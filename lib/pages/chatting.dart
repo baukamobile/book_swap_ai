@@ -6,6 +6,7 @@ import 'package:book_swap_ai/widgets/text_widget.dart';
 import 'package:chat_gpt_sdk/chat_gpt_sdk.dart';
 import 'package:dash_chat_2/dash_chat_2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 // class Chatting extends StatefulWidget {
 //   const Chatting({super.key});
@@ -203,8 +204,22 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 // dd
 
-class GeminiChat extends StatelessWidget {
+import 'package:flutter/material.dart';
+import 'package:dash_chat_2/dash_chat_2.dart';
+import 'package:flutter_gemini/flutter_gemini.dart';
+
+class GeminiChat extends StatefulWidget {
   const GeminiChat({super.key});
+
+  @override
+  State<GeminiChat> createState() => _GeminiChatState();
+}
+
+class _GeminiChatState extends State<GeminiChat> {
+  final Gemini gemini = Gemini.instance;
+  List<ChatMessage> messages = [];
+  ChatUser currentUser = ChatUser(id: "0", firstName: "User");
+  ChatUser geminiUser = ChatUser(id: "1", firstName: "Gemini");
 
   @override
   Widget build(BuildContext context) {
@@ -213,8 +228,50 @@ class GeminiChat extends StatelessWidget {
         centerTitle: true,
         title: Text("AI Chat"),
         backgroundColor: Colors.blueAccent,
-        
       ),
+      body: _buildUI(),
     );
+  }
+
+  Widget _buildUI() {
+    return DashChat(
+      currentUser: currentUser,
+      onSend: _sendMessage,
+      messages: messages,
+    );
+  }
+
+  void _sendMessage(ChatMessage chatMessage) {
+    setState(() {
+      messages = [chatMessage, ...messages]; // Insert user's message
+    });
+
+    try {
+      String question = chatMessage.text;
+      gemini.streamGenerateContent(question).listen(
+        (event) {
+          // Only add response if it's from Gemini and it's not the last message
+          if (messages.isNotEmpty && messages.first.user == geminiUser) {
+            return; // Don't repeat last response
+          }
+
+          String response = event.content?.parts?.fold("", (previous, current) => "$previous$current") ?? "";
+          ChatMessage geminiResponse = ChatMessage(
+            user: geminiUser,
+            createdAt: DateTime.now(),
+            text: response,
+          );
+
+          setState(() {
+            messages = [geminiResponse, ...messages]; // Insert Gemini's response
+          });
+        },
+        onError: (error) {
+          print("Error during Gemini stream: $error");
+        },
+      );
+    } catch (e) {
+      print("Error sending message: $e");
+    }
   }
 }
