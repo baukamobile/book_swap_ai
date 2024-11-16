@@ -1,7 +1,7 @@
 import 'package:book_swap_ai/pages/chatting.dart';
 import 'package:flutter/material.dart';
-List<String> genres = <String>['fantasy', 'Fiction', 'Detective', 'Drama'];
-List<String> sorts = <String>['Price low to high','Price high to low', 'New In'];
+// List<String> genres = <String>['fantasy', 'Fiction', 'Detective', 'Drama'];
+// List<String> sorts = <String>['Price low to high','Price high to low', 'New In'];
 class ChatPage extends StatefulWidget {
   const ChatPage({super.key});
 
@@ -11,8 +11,8 @@ class ChatPage extends StatefulWidget {
 
 class _ChatPageState extends State<ChatPage> {
   
-  String dropdownValue = genres.first;
-  String dropdownValue2 = sorts.first;
+  // String dropdownValue = genres.first;
+  // String dropdownValue2 = sorts.first;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -41,11 +41,12 @@ class _ChatPageState extends State<ChatPage> {
                     ),
                   ),
                   const SizedBox(width: 10), // Space between TextField and Icon
-                  IconButton(
-                    icon: const Icon(Icons.search, size: 50,),
-                    onPressed: () {
-                      // Add your search functionality here
-                    },
+                  Container(
+                    width: 50,
+                    height: 50,
+                    child: InkWell(
+                      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context)=>GeminiChat())),
+                      child: Image.asset('assets/img/ai.jpg',width: 30,)),
                   ),
                 ],
               ),
@@ -55,64 +56,14 @@ class _ChatPageState extends State<ChatPage> {
                 
                 children: [
                   
-                  DropdownButton<String>(
-          value: dropdownValue,
-          icon: const Icon(Icons.arrow_downward),
-          elevation: 16,
-          style: const TextStyle(color: Colors.deepPurple),
-          underline: Container(
-            height: 2,
-            color: Colors.deepPurpleAccent,
-          ),
-          onChanged: (String? value) {
-            // This is called when the user selects an item.
-            setState(() {
-              dropdownValue = value!;
-            });
-          },
-          items: genres.map<DropdownMenuItem<String>>((String value) {
-            return DropdownMenuItem<String>(
-              value: value,
-              child: Text(value),
-            );
-          }).toList()),
-          DropdownButton<String>(
-          value: dropdownValue2,
-          icon: const Icon(Icons.sort),
-          elevation: 16,
-          style: const TextStyle(color: Colors.deepPurple),
-          underline: Container(
-            height: 2,
-            color: Colors.deepPurpleAccent,
-          ),
-          onChanged: (String? value) {
-            // This is called when the user selects an item.
-            setState(() {
-              dropdownValue2 = value!;
-            });
-          },
-          items: sorts.map<DropdownMenuItem<String>>((String value) {
-            return DropdownMenuItem<String>(
-              value: value,
-              child: Text(value),
-            );
-          }).toList()),
-                  // const Text(
-                  //   "Genres",
+          
                   //   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   // ),
-                  Container(
-                    // height: 200,
-                    // width: 200,
-                    // padding: const EdgeInsets.all(8.0),
-                    // decoration: BoxDecoration(
-                    //   color: Colors.deepPurple.shade100, // Example background color
-                    //   borderRadius: BorderRadius.circular(10.0),
-                    // ),
-                    child: InkWell(
-                      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context)=>GeminiChat())),
-                      child: Image.asset('assets/img/ai.jpg',width: 30,)),
-                )
+                //   Container(
+                //     child: InkWell(
+                //       onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context)=>GeminiChat())),
+                //       child: Image.asset('assets/img/ai.jpg',width: 30,)),
+                // ),
                 
                 ],
               ),
