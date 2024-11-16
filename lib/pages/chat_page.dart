@@ -1,3 +1,4 @@
+import 'package:book_swap_ai/components/chat_with_them.dart';
 import 'package:book_swap_ai/pages/chatting.dart';
 import 'package:flutter/material.dart';
 // List<String> genres = <String>['fantasy', 'Fiction', 'Detective', 'Drama'];
@@ -51,22 +52,9 @@ class _ChatPageState extends State<ChatPage> {
                 ],
               ),
               const SizedBox(height: 20), // Space between the rows
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                
-                children: [
-                  
-          
-                  //   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  // ),
-                //   Container(
-                //     child: InkWell(
-                //       onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context)=>GeminiChat())),
-                //       child: Image.asset('assets/img/ai.jpg',width: 30,)),
-                // ),
-                
-                ],
-              ),
+              ChatWithThem(
+                // name: "Sam",lastname: "Smith"
+                ),
             ],
           ),
         ),
