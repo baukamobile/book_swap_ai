@@ -21,7 +21,8 @@ class _ChatPageState extends State<ChatPage> {
         //   title: const Text('Chat'),
         //   backgroundColor: Colors.deepPurple, // Example color
         // ),
-        body: Padding(
+        body: 
+        Padding(
           padding: const EdgeInsets.all(8.0),
           child: ListView(
             padding: const EdgeInsets.symmetric(vertical: 45), // Padding for the whole ListView
@@ -118,6 +119,7 @@ class _ChatPageState extends State<ChatPage> {
             ],
           ),
         ),
+      
       ),
     );
   }
