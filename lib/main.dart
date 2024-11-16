@@ -33,7 +33,8 @@ class MyApp extends StatelessWidget {
       //     appBarTheme: AppBarTheme(
       //       // color: cardColor,
       //     )),
-      home: const GeminiChat(),
+      // home: HomePage(),
+      // const GeminiChat(),
     );
   }
 }
