@@ -25,15 +25,16 @@ class _HomePageState extends State<HomePage> {
   List<SwipeItem> _swipeItems = <SwipeItem>[];
   MatchEngine? _matchEngine;
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+  
   List<String> _names = [
-    "Red",
-    "Blue",
-    "Green",
-    "Yellow",
-    "Orange",
-    "Grey",
-    "Purple",
-    "Pink"
+    "Tom Soyer",
+    "Tom Soyer",
+    "Hamlet",
+    "Pride and Prejudes",
+    "Crime And Punishment",
+    "War and Peace",
+    // "Purple",
+    // "Pink"
   ];
   List<Image> _imgname = [
     //  Image(image: AssetImage('assets/videos/book1.mp4',)),
@@ -56,6 +57,12 @@ class _HomePageState extends State<HomePage> {
     Colors.purple,
     Colors.pink
   ];
+  // var books = <String, Widget>{};
+  // //  Map(
+
+  // // );
+  //  books['tom'] = Image(image: AssetImage('assets/img/tom.jpg'));
+
   
 
  

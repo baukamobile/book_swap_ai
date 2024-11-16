@@ -3,22 +3,22 @@ import 'package:flutter/material.dart';
 
 class ChatWithThem extends StatelessWidget {
   ChatWithThem({super.key
-  // , required this.name, required this.lastname
+  , required this.name, required this.lastname, required this.message
   });
   String name = 'Tom';
   String lastname = 'Jerry';
-  String _message = 'Let me know if you have additional requirements, like adding borders or shadows!';
+  String message = 'Let me know if you have additional';
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
+    return Padding(
+        padding: const EdgeInsets.all(2.0),
         child: Row(
+          // crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Image(image: AssetImage('assets/img/avatar.jpg')),
-            Column(
-              children: [
-                Row(
+            Image(image: AssetImage('assets/img/avatar.jpg'),height: 90,),
+            Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text("$name", style: TextStyle(
                       color: Colors.black, fontWeight: FontWeight.bold
@@ -30,7 +30,11 @@ class ChatWithThem extends StatelessWidget {
                     
                   ],
                 ),
-                Text("$_message", style: TextStyle(
+                SizedBox(height: 5,),
+            Column(
+              children: [
+                
+                Text("$message", style: TextStyle(
                       color: Colors.black, 
                     ),),
         
@@ -38,7 +42,7 @@ class ChatWithThem extends StatelessWidget {
             )
           ],
         ),
-      ),
+
     );
   }
 }

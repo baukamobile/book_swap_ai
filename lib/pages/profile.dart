@@ -64,6 +64,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     children: [
                       Text('Name:'),
                   Text("$name"),
+                  
                     ],
                   ),
                   IconButton(onPressed: (){}, icon: Icon(Icons.edit)),

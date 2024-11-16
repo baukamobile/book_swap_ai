@@ -28,9 +28,11 @@ class _ChatPageState extends State<ChatPage> {
           child: ListView(
             padding: const EdgeInsets.symmetric(vertical: 45), // Padding for the whole ListView
             children: [
+              
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
+                  
                   Expanded(
                     child: TextField(
                       decoration: InputDecoration(
@@ -52,9 +54,17 @@ class _ChatPageState extends State<ChatPage> {
                 ],
               ),
               const SizedBox(height: 20), // Space between the rows
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                // child: ChatWithThem(
+                //   name: "Sam",lastname: "Smith", message: "Это полезно, например, для создания случайного порядка элементов в играх или приложениях, где нужно рандомизировать данные.",
+                //   ),
+              ),
               ChatWithThem(
-                // name: "Sam",lastname: "Smith"
-                ),
+                  name: "Sam",
+                  lastname: "Smith", 
+                  message: "Это полезно, например, для создания случайного .",
+                  ),
             ],
           ),
         ),
