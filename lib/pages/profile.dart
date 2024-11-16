@@ -43,11 +43,18 @@ class _ProfilePageState extends State<ProfilePage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    width: 200,
-                    height: 200,
-                    child:Image(image: AssetImage('assets/img/avtr.jpg')),
+                    width: 150,
+                      height: 150,
+                    child: CircleAvatar(
+                      // width: 150,
+                      // height: 150,
+                      // decoration: BoxDecoration(
+                      //   borderRadius: BorderRadius.all(Radius.circular(40)),
+                      // ),
+                        child: Image(image: AssetImage('assets/img/avtr.jpg'))),
+                  ),
                     //  Image.asset('assets/img/avtr.jpg')
-                    ),
+
                 
               // const SizedBox(height: 20,),
               Row(
