@@ -64,6 +64,7 @@ class _ChatPageState extends State<ChatPage> {
                   name: "Sam",
                   lastname: "Smith", 
                   message: "Это полезно, например, для создания случайного .",
+                  book: "Crime And Punishment",
                   ),
             ],
           ),
