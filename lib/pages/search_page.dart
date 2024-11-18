@@ -1,7 +1,28 @@
 import 'package:book_swap_ai/pages/chatting.dart';
 import 'package:flutter/material.dart';
 
-List<String> genres = <String>['fantasy', 'Fiction', 'Detective', 'Drama'];
+List<String> genres = <String>[
+'Fiction',
+'Mystery/Crime',
+'Fantasy',
+'Science Fiction (Sci-Fi)',
+'Romance',
+'Thriller/Suspense',
+'Historical Fiction',
+'Horror',
+'Young Adult (YA)',
+'Dystopian',
+'Classics',
+'Biography/Autobiography',
+'Memoirs',
+'Self-Help',
+'Non-Fiction (General)',
+'Adventure',
+'Magical Realism',
+'Poetry',
+'True Crime',
+'Children’s Literature',
+  ];
 List<String> sorts = <String>['Price low to high','Price high to low', 'New In'];
 List<String> cities = <String>['Astana','Almaty','Shymkent','Aktobe','Karagandy'];
 
