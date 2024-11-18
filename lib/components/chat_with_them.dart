@@ -17,23 +17,7 @@ class ChatWithThem extends StatelessWidget {
           // crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Image(image: AssetImage('assets/img/avatar.jpg'),height: 70,),
-            // Row(
-            //       mainAxisAlignment: MainAxisAlignment.start,
-            //       crossAxisAlignment: CrossAxisAlignment.start,
-            //       children: [
-            //         Text("$name", style: TextStyle(
-            //           color: Colors.black, fontWeight: FontWeight.bold
-            //         ),),
-            //         SizedBox(width: 5,),
-            //         Text("$lastname", style: TextStyle(
-            //           color: Colors.black, fontWeight: FontWeight.bold
-            //         ),),
-                    
-            //       ],
-            //     ),
-                // SizedBox(height: 5,),
             Column(
-              // mainAxisAlignment: MainAxisAlignment.,
               crossAxisAlignment: CrossAxisAlignment.start,
 
               children: [

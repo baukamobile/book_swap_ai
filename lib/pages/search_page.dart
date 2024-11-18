@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 List<String> genres = <String>['fantasy', 'Fiction', 'Detective', 'Drama'];
 List<String> sorts = <String>['Price low to high','Price high to low', 'New In'];
+List<String> cities = <String>['Astana','Almaty','Shymkent','Aktobe','Karagandy'];
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -14,6 +15,7 @@ class SearchPage extends StatefulWidget {
 class _SearchPageState extends State<SearchPage> {
   String dropdownValue = genres.first;
   String dropdownValue2 = sorts.first;
+  String dropdownValue3 = cities.first;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,7 +51,7 @@ class _SearchPageState extends State<SearchPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 
                 children: [
-                  
+                  //Genres
                   DropdownButton<String>(
           value: dropdownValue,
           icon: const Icon(Icons.arrow_downward),
@@ -71,6 +73,7 @@ class _SearchPageState extends State<SearchPage> {
               child: Text(value),
             );
           }).toList()),
+          //Sorting
           DropdownButton<String>(
           value: dropdownValue2,
           icon: const Icon(Icons.sort),
@@ -92,6 +95,51 @@ class _SearchPageState extends State<SearchPage> {
               child: Text(value),
             );
           }).toList()),
+          DropdownButton<String>(
+          value: dropdownValue3,
+          icon: const Icon(Icons.location_on),
+          elevation: 16,
+          style: const TextStyle(color: Colors.deepPurple),
+          underline: Container(
+            height: 2,
+            color: Colors.deepPurpleAccent,
+          ),
+          onChanged: (String? value) {
+            // This is called when the user selects an item.
+            setState(() {
+              dropdownValue3 = value!;
+            });
+          },
+          items: cities.map<DropdownMenuItem<String>>((String value) {
+            return DropdownMenuItem<String>(
+              value: value,
+              child: Text(value),
+            );
+          }).toList()),
+          //Geo Position
+          // DropdownButton<String>(
+          // value: dropdownValue3,
+          // icon: const Icon(Icons.location_on),
+          // elevation: 16,
+          // style: const TextStyle(color: Colors.deepPurple),
+          // underline: Container(
+          //   height: 2,
+          //   color: Colors.deepPurpleAccent,
+          // ),
+          // onChanged: (String? value) {
+          //   // This is called when the user selects an item.
+          //   setState(() {
+          //     dropdownValue3 = value!;
+          //   });
+          // },
+          // items: cities.map<DropdownMenuItem<String>>((String value) {
+          //   return DropdownMenuItem<String>(
+          //     value: value,
+          //     child: Text(value),
+          //   );
+          // }).toList()),
+          // //Sorting
+          
                   // const Text(
                   //   "Genres",
                   //   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
