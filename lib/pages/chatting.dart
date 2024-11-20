@@ -11,6 +11,7 @@ import 'package:dash_chat_2/dash_chat_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+// import 'package:flutter_gemini/';
 // class Chatting extends StatefulWidget {
 //   const Chatting({super.key});
 
