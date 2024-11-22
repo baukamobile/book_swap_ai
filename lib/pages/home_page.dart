@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:swipe_cards/draggable_card.dart';
 import 'package:swipe_cards/swipe_cards.dart';
 import 'dart:math';
+//come back 
+
 class Content {
   final String text;
   // final Color color;
