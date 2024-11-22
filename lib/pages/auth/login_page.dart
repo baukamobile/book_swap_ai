@@ -25,7 +25,7 @@ class _LoginPageState extends State<LoginPage> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 17),
+              // padding: EdgeInsets.symmetric(horizontal: 17),
               child: Align(
                 alignment: Alignment.topRight,
                 child: IconButton(onPressed: (){

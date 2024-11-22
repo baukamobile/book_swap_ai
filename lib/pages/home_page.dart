@@ -45,7 +45,10 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<void> fetchBooks() async {
-    final response = await http.get(Uri.parse('http://127.0.0.1:8000/api/books/'));
+  try {
+    final response = await http.get(Uri.parse('http://10.0.2.2:8000/api/books/'));
+    print('Status Code: ${response.statusCode}');
+    print('Response Body: ${response.body}');
 
     if (response.statusCode == 200) {
       final List<dynamic> data = json.decode(response.body);
@@ -55,12 +58,16 @@ class _HomePageState extends State<HomePage> {
     } else {
       throw Exception('Failed to load books');
     }
+  } catch (e) {
+    print('Error: $e');
   }
+}
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Books")),
+      appBar: AppBar(title: Text('nothing')),
       body: books.isEmpty
           ? Center(child: CircularProgressIndicator())
           : ListView.builder(
