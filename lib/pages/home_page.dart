@@ -1,192 +1,81 @@
-import 'package:flutter/foundation.dart';
+import 'dart:convert';
 import 'package:flutter/material.dart';
-// import 'package:example/content.dart';
-import 'package:swipe_cards/draggable_card.dart';
-import 'package:swipe_cards/swipe_cards.dart';
-import 'dart:math';
-//come back 
+import 'package:http/http.dart' as http;
 
-class Content {
-  final String text;
-  // final Color color;
-  final Image img;
-  Content({
-    required this.text,
-    //  required this.color,
-      required this.img});
+class Book {
+  final String title;
+  final String author;
+  final String description;
+  final String condition;
+  final String imageUrl;
+
+  Book({
+    required this.title,
+    required this.author,
+    required this.description,
+    required this.condition,
+    required this.imageUrl,
+  });
+
+  factory Book.fromJson(Map<String, dynamic> json) {
+    return Book(
+      title: json['title'],
+      author: json['author'],
+      description: json['description'],
+      condition: json['condition'],
+      imageUrl: json['image'],  // This is the image URL returned by the API
+    );
+  }
 }
 
 class HomePage extends StatefulWidget {
-  const   HomePage({super.key});
+  const HomePage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  List<SwipeItem> _swipeItems = <SwipeItem>[];
-  MatchEngine? _matchEngine;
-  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
-  
-  List<String> _names = [
-    "Tom Soyer",
-    "Tom Soyer",
-    "Hamlet",
-    "Pride and Prejudes",
-    "Crime And Punishment",
-    "War and Peace",
-    // "Purple",
-    // "Pink"
-  ];
-  List<Image> _imgname = [
-    //  Image(image: AssetImage('assets/videos/book1.mp4',)),
-    // Image(image: AssetImage('assets/img/ai.jpg')),
-    Image(image: AssetImage('assets/img/tom.jpg')),
-    Image(image: AssetImage('assets/img/tom.jpg')),
-    Image(image: AssetImage('assets/img/hamlet.jpg')),
-    Image(image: AssetImage('assets/img/prideprejudes.jpg')),
-    Image(image: AssetImage('assets/img/crimepunishment.jpg')),
-    Image(image: AssetImage('assets/img/warpeace.jpg')),
-  ];
+  List<Book> books = [];
 
-  List<Color> _colors = [
-    Colors.red,
-    Colors.blue,
-    Colors.green,
-    Colors.yellow,
-    Colors.orange,
-    Colors.grey,
-    Colors.purple,
-    Colors.pink
-  ];
-  // var books = <String, Widget>{};
-  // //  Map(
-
-  // // );
-  //  books['tom'] = Image(image: AssetImage('assets/img/tom.jpg'));
-
-  
-
- 
-
-void initState() {
-  int minLength = min(_names.length, _imgname.length); // Get the smaller length
-  for (int i = 0; i < minLength; i++) {
-    _swipeItems.add(SwipeItem(
-      content: Content(
-        text: _names[i],
-        img: _imgname[i], // Use the corresponding image
-      ),
-      likeAction: () {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text("Liked ${_names[i]}"),
-          duration: Duration(milliseconds: 500),
-        ));
-      },
-      nopeAction: () {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text("Nope ${_names[i]}"),
-          duration: Duration(milliseconds: 500),
-        ));
-      },
-      superlikeAction: () {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text("Superliked ${_names[i]}"),
-          duration: Duration(milliseconds: 500),
-        ));
-      },
-      onSlideUpdate: (SlideRegion? region) async {
-        print("Region $region");
-      },
-    ));
+  @override
+  void initState() {
+    super.initState();
+    fetchBooks();
   }
 
-  _matchEngine = MatchEngine(swipeItems: _swipeItems);
-  super.initState();
-}
+  Future<void> fetchBooks() async {
+    final response = await http.get(Uri.parse('http://127.0.0.1:8000/api/books/'));
 
- 
+    if (response.statusCode == 200) {
+      final List<dynamic> data = json.decode(response.body);
+      setState(() {
+        books = data.map((bookData) => Book.fromJson(bookData)).toList();
+      });
+    } else {
+      throw Exception('Failed to load books');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
-    key: _scaffoldKey,
-        body: Container(
-            child: Stack(children: [
-          Container(
-            height: MediaQuery.of(context).size.height - kToolbarHeight,
-            child: SwipeCards(
-              matchEngine: _matchEngine!,
-              itemBuilder: (BuildContext context, int index) {
-  return Container(
-    alignment: Alignment.center,
-    child: _swipeItems[index].content.img,  // Display the image here
-  );
-},
-
-              onStackFinished: () {
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                  content: Text("Stack Finished"),
-                  duration: Duration(milliseconds: 500),
-                ));
+      appBar: AppBar(title: Text("Books")),
+      body: books.isEmpty
+          ? Center(child: CircularProgressIndicator())
+          : ListView.builder(
+              itemCount: books.length,
+              itemBuilder: (context, index) {
+                final book = books[index];
+                return Card(
+                  child: ListTile(
+                    leading: Image.network(book.imageUrl),  // Display book image from the URL
+                    title: Text(book.title),
+                    subtitle: Text('${book.author}\nCondition: ${book.condition}'),
+                  ),
+                );
               },
-              itemChanged: (SwipeItem item, int index) {
-                print("item: ${item.content.text}, index: $index");
-              },
-              leftSwipeAllowed: true,
-              rightSwipeAllowed: true,
-              upSwipeAllowed: true,
-              fillSpace: true,
-              likeTag: Container(
-                margin: const EdgeInsets.all(15.0),
-                padding: const EdgeInsets.all(3.0),
-                decoration: BoxDecoration(
-                    border: Border.all(color: Colors.green)
-                ),
-                child: Text('Like'),
-              ),
-              nopeTag: Container(
-                margin: const EdgeInsets.all(15.0),
-                padding: const EdgeInsets.all(3.0),
-                decoration: BoxDecoration(
-                    border: Border.all(color: Colors.red)
-                ),
-                child: Text('Nope'),
-              ),
-              superLikeTag: Container(
-                margin: const EdgeInsets.all(15.0),
-                padding: const EdgeInsets.all(3.0),
-                decoration: BoxDecoration(
-                    border: Border.all(color: Colors.orange)
-                ),
-                child: Text('Super Like'),
-              ),
             ),
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                ElevatedButton(
-                    onPressed: () {
-                      _matchEngine!.currentItem?.nope();
-                    },
-                    child: Text("Nope")),
-                ElevatedButton(
-                    onPressed: () {
-                      _matchEngine!.currentItem?.superLike();
-                    },
-                    child: Text("Superlike")),
-                ElevatedButton(
-                    onPressed: () {
-                      _matchEngine!.currentItem?.like();
-                    },
-                    child: Text("Like"))
-              ],
-            ),
-          )
-        ]))
     );
   }
 }
