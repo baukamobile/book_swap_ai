@@ -67,9 +67,12 @@ class _AddBookState extends State<AddBook> {
             const SizedBox(height: 10,),
             Container(
               child: TextField(
+                maxLength: 20,
                 decoration: InputDecoration(
-          hintText: "Title",
-          enabledBorder: OutlineInputBorder(),
+          hintText: "Title",          
+          enabledBorder: OutlineInputBorder(
+            
+          ),
           focusedBorder: OutlineInputBorder(),
           ),
               ),
@@ -77,6 +80,7 @@ class _AddBookState extends State<AddBook> {
               const SizedBox(height: 10,),
             Container(
               child: TextField(
+                maxLength: 20,
                 decoration: InputDecoration(
           hintText: "Author",
           enabledBorder: OutlineInputBorder(),
@@ -87,6 +91,7 @@ class _AddBookState extends State<AddBook> {
               const SizedBox(height: 10,),
             Container(
               child: TextField(
+                maxLength: 10,
                 decoration: InputDecoration(
           hintText: "Price",
           enabledBorder: OutlineInputBorder(),
@@ -97,6 +102,7 @@ class _AddBookState extends State<AddBook> {
               const SizedBox(height: 10,),
             Container(
               child: TextField(
+                maxLength: 100,
                 decoration: InputDecoration(
           hintText: "Description",
           enabledBorder: OutlineInputBorder(),
@@ -105,15 +111,7 @@ class _AddBookState extends State<AddBook> {
               ),
             ),
               const SizedBox(height: 10,),
-            Container(
-              child: TextField(
-                decoration: InputDecoration(
-          hintText: "Status",
-          enabledBorder: OutlineInputBorder(),
-          focusedBorder: OutlineInputBorder(),
-          ),
-              ),
-            ),
+            
               const SizedBox(height: 10,),
             Container(
               width: 150,
