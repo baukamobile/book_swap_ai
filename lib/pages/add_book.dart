@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 
 
@@ -60,4 +61,9 @@ class _AddBookState extends State<AddBook> {
       ),
     );
   }
+//image picker future func
+  Future _pickImageFromGallery() async{
+    await ImagePicker();
+  }
+
 }
