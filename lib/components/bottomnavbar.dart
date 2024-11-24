@@ -1,3 +1,4 @@
+import 'package:book_swap_ai/pages/add_book.dart';
 import 'package:book_swap_ai/pages/chat_page.dart';
 import 'package:book_swap_ai/pages/home_page.dart';
 import 'package:book_swap_ai/pages/profile.dart';
@@ -18,6 +19,7 @@ class _BottomnavbarState extends State<Bottomnavbar> {
   final List<Widget> _screens = [
     const HomePage(),
     const SearchPage(),
+    const AddBook(),
     const ChatPage(),
     const ProfilePage(),
   ];
@@ -41,23 +43,28 @@ class _BottomnavbarState extends State<Bottomnavbar> {
         items: const <BottomNavigationBarItem>[
           
           BottomNavigationBarItem(
-            backgroundColor: Color(0xFF2C3E50),
+            backgroundColor: Color(0xFF00FFFF),
             icon: Icon(Icons.home),
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            backgroundColor: Color(0xFF1ABC9C),
+            backgroundColor: Color(0xFF1FF5E4D),
 
             icon: Icon(Icons.search),
             label: 'Search',
           ),
           BottomNavigationBarItem(
-            backgroundColor: Color(0xFF95A5A6),
+            backgroundColor: Color(0xFF32CD32),
+            icon: Icon(Icons.add),
+            label: 'Add',
+          ),
+          BottomNavigationBarItem(
+            backgroundColor: Color(0xFF967BB6),
             icon: Icon(Icons.chat),
             label: 'Chat',
           ),
           BottomNavigationBarItem(
-            backgroundColor: Color.fromARGB(255, 36, 37, 37),
+            backgroundColor: Color(0xFFFFDF00),
             icon: Icon(Icons.account_circle),
             label: 'Profile',
           ),

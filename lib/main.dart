@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
       //     appBarTheme: AppBarTheme(
       //       // color: cardColor,
       //     )),
-      home: AddBook(),
+      home: MyHomePage(),
       // const GeminiChat(),
     );
   }

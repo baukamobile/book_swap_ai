@@ -45,7 +45,8 @@ class _AddBookState extends State<AddBook> {
                 width: 150,
                 height: 150,
               
-                child: Center(child: InkWell
+                child: Center(child: 
+                InkWell
                 (
                   child:
                    Text("Take a photo", style: TextStyle(
