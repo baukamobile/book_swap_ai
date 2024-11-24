@@ -44,22 +44,86 @@ class _AddBookState extends State<AddBook> {
               children: [
                 ElevatedButton.icon(
                   onPressed: _pickImageFromGallery,
-                  icon: const Icon(Icons.photo),
-                  label: const Text('Select from Gallery'),
+                  icon: const Icon(Icons.photo, color: Colors.white,),
+                  label: const Text("Publish", style: TextStyle(
+                color: Colors.white
+              ),),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.purple,
                   ),
                 ),
                 ElevatedButton.icon(
                   onPressed: _pickImageFromCamera,
-                  icon: const Icon(Icons.camera_alt),
-                  label: const Text('Take a Photo'),
+                  icon: const Icon(Icons.camera_alt,color: Colors.white,),
+                  label: const Text("Publish", style: TextStyle(
+                color: Colors.white
+              ),),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.purple,
                   ),
                 ),
               ],
             ),
+            const SizedBox(height: 10,),
+            Container(
+              child: TextField(
+                decoration: InputDecoration(
+          hintText: "Title",
+          enabledBorder: OutlineInputBorder(),
+          focusedBorder: OutlineInputBorder(),
+          ),
+              ),
+            ),
+              const SizedBox(height: 10,),
+            Container(
+              child: TextField(
+                decoration: InputDecoration(
+          hintText: "Author",
+          enabledBorder: OutlineInputBorder(),
+          focusedBorder: OutlineInputBorder(),
+          ),
+              ),
+            ),
+              const SizedBox(height: 10,),
+            Container(
+              child: TextField(
+                decoration: InputDecoration(
+          hintText: "Price",
+          enabledBorder: OutlineInputBorder(),
+          focusedBorder: OutlineInputBorder(),
+          ),
+              ),
+            ),
+              const SizedBox(height: 10,),
+            Container(
+              child: TextField(
+                decoration: InputDecoration(
+          hintText: "Description",
+          enabledBorder: OutlineInputBorder(),
+          focusedBorder: OutlineInputBorder(),
+          ),
+              ),
+            ),
+              const SizedBox(height: 10,),
+            Container(
+              child: TextField(
+                decoration: InputDecoration(
+          hintText: "Status",
+          enabledBorder: OutlineInputBorder(),
+          focusedBorder: OutlineInputBorder(),
+          ),
+              ),
+            ),
+              const SizedBox(height: 10,),
+            Container(
+              width: 150,
+              height: 90,
+              color: Colors.purple,
+              child: Center(child: Text("Publish", style: TextStyle(
+                color: Colors.white
+              ),)),
+              ),
+
           ],
         ),
       ),
