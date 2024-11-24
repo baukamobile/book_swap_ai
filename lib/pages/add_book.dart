@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -12,6 +11,7 @@ class AddBook extends StatefulWidget {
 
 class _AddBookState extends State<AddBook> {
   File? _selectedImage;
+  bool _isNew = true; // Book condition state
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class _AddBookState extends State<AddBook> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
+        child: ListView( // Wrap everything in ListView
           children: [
             _selectedImage != null
                 ? Image.file(
@@ -44,84 +44,92 @@ class _AddBookState extends State<AddBook> {
               children: [
                 ElevatedButton.icon(
                   onPressed: _pickImageFromGallery,
-                  icon: const Icon(Icons.photo, color: Colors.white,),
-                  label: const Text("Publish", style: TextStyle(
-                color: Colors.white
-              ),),
+                  icon: const Icon(Icons.photo, color: Colors.white),
+                  label: const Text(
+                    "Select from Gallery",
+                    style: TextStyle(color: Colors.white),
+                  ),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.purple,
                   ),
                 ),
                 ElevatedButton.icon(
                   onPressed: _pickImageFromCamera,
-                  icon: const Icon(Icons.camera_alt,color: Colors.white,),
-                  label: const Text("Publish", style: TextStyle(
-                color: Colors.white
-              ),),
+                  icon: const Icon(Icons.camera_alt, color: Colors.white),
+                  label: const Text(
+                    "Take a Photo",
+                    style: TextStyle(color: Colors.white),
+                  ),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.purple,
                   ),
                 ),
               ],
             ),
-            const SizedBox(height: 10,),
-            Container(
-              child: TextField(
-                maxLength: 20,
-                decoration: InputDecoration(
-          hintText: "Title",          
-          enabledBorder: OutlineInputBorder(
-            
-          ),
-          focusedBorder: OutlineInputBorder(),
-          ),
+            const SizedBox(height: 10),
+            TextField(
+              maxLength: 20,
+              decoration: const InputDecoration(
+                hintText: "Title",
+                enabledBorder: OutlineInputBorder(),
+                focusedBorder: OutlineInputBorder(),
               ),
             ),
-              const SizedBox(height: 10,),
-            Container(
-              child: TextField(
-                maxLength: 20,
-                decoration: InputDecoration(
-          hintText: "Author",
-          enabledBorder: OutlineInputBorder(),
-          focusedBorder: OutlineInputBorder(),
-          ),
+            const SizedBox(height: 10),
+            TextField(
+              maxLength: 20,
+              decoration: const InputDecoration(
+                hintText: "Author",
+                enabledBorder: OutlineInputBorder(),
+                focusedBorder: OutlineInputBorder(),
               ),
             ),
-              const SizedBox(height: 10,),
-            Container(
-              child: TextField(
-                maxLength: 10,
-                decoration: InputDecoration(
-          hintText: "Price",
-          enabledBorder: OutlineInputBorder(),
-          focusedBorder: OutlineInputBorder(),
-          ),
+            const SizedBox(height: 10),
+            TextField(
+              maxLength: 10,
+              decoration: const InputDecoration(
+                hintText: "Price",
+                enabledBorder: OutlineInputBorder(),
+                focusedBorder: OutlineInputBorder(),
               ),
             ),
-              const SizedBox(height: 10,),
-            Container(
-              child: TextField(
-                maxLength: 100,
-                decoration: InputDecoration(
-          hintText: "Description",
-          enabledBorder: OutlineInputBorder(),
-          focusedBorder: OutlineInputBorder(),
-          ),
+            const SizedBox(height: 10),
+            TextField(
+              maxLines: 5,
+
+              maxLength: 100,
+              decoration: const InputDecoration(
+                hintText: "Description",
+                enabledBorder: OutlineInputBorder(),
+                focusedBorder: OutlineInputBorder(),
               ),
             ),
-              const SizedBox(height: 10,),
-            
-              const SizedBox(height: 10,),
+            const SizedBox(height: 10),
+            Row(
+              children: [
+                const Text("Book is new? "),
+                Checkbox(
+                  value: _isNew,
+                  onChanged: (bool? newValue) {
+                    setState(() {
+                      _isNew = newValue ?? true;
+                    });
+                  },
+                ),
+              ],
+            ),
+            const SizedBox(height: 10),
             Container(
               width: 150,
               height: 90,
               color: Colors.purple,
-              child: Center(child: Text("Publish", style: TextStyle(
-                color: Colors.white
-              ),)),
+              child: const Center(
+                child: Text(
+                  "Publish",
+                  style: TextStyle(color: Colors.white),
+                ),
               ),
-
+            ),
           ],
         ),
       ),
