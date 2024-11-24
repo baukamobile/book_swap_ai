@@ -1,4 +1,5 @@
 import 'package:book_swap_ai/components/bottomnavbar.dart';
+import 'package:book_swap_ai/pages/add_book.dart';
 import 'package:book_swap_ai/pages/chatting.dart';
 import 'package:flutter/material.dart';
 import 'package:book_swap_ai/pages/auth/login_page.dart';
@@ -33,7 +34,7 @@ class MyApp extends StatelessWidget {
       //     appBarTheme: AppBarTheme(
       //       // color: cardColor,
       //     )),
-      home: MyHomePage(),
+      home: AddBook(),
       // const GeminiChat(),
     );
   }
