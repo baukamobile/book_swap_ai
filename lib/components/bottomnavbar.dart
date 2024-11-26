@@ -43,7 +43,7 @@ class _BottomnavbarState extends State<Bottomnavbar> {
         items: const <BottomNavigationBarItem>[
           
           BottomNavigationBarItem(
-            backgroundColor: Color(0xFF00FFFF),
+            backgroundColor: Color.fromARGB(255, 28, 70, 70),
             icon: Icon(Icons.home),
             label: 'Home',
           ),
@@ -64,7 +64,7 @@ class _BottomnavbarState extends State<Bottomnavbar> {
             label: 'Chat',
           ),
           BottomNavigationBarItem(
-            backgroundColor: Color(0xFFFFDF00),
+            backgroundColor: Color.fromARGB(255, 122, 112, 46),
             icon: Icon(Icons.account_circle),
             label: 'Profile',
           ),
