@@ -48,6 +48,7 @@ dependencies:
   flutter_dotenv: ^5.2.1
   flutter_gemini: ^2.0.3
   image_picker: ^1.1.2
+  flutter_bloc: ^8.1.6
 
   
 dev_dependencies:
