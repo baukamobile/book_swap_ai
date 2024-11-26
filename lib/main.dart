@@ -1,6 +1,8 @@
 import 'package:book_swap_ai/components/bottomnavbar.dart';
 import 'package:book_swap_ai/pages/add_book.dart';
 import 'package:book_swap_ai/pages/chatting.dart';
+import 'package:book_swap_ai/themes/dark_mode.dart';
+import 'package:book_swap_ai/themes/light_mode.dart';
 import 'package:flutter/material.dart';
 import 'package:book_swap_ai/pages/auth/login_page.dart';
 import 'package:book_swap_ai/pages/auth/register_page.dart';
@@ -28,6 +30,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      theme: lightMode,
       // theme: ThemeData(
         
       //     // scaffoldBackgroundColor: scaffoldBackgroundColor,
