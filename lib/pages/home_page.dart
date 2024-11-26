@@ -46,7 +46,7 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> fetchBooks() async {
   try {
-    final response = await http.get(Uri.parse('http://10.0.2.2:8000/api/books/'));
+    final response = await http.get(Uri.parse('http://192.168.0.102:8000/api/books/3'));
     print('Status Code: ${response.statusCode}');
     print('Response Body: ${response.body}');
 
@@ -56,12 +56,14 @@ class _HomePageState extends State<HomePage> {
         books = data.map((bookData) => Book.fromJson(bookData)).toList();
       });
     } else {
-      throw Exception('Failed to load books');
+      throw Exception('Failed to load books: ${response.statusCode}');
     }
   } catch (e) {
     print('Error: $e');
+    // Optionally show a dialog or message to the user if there is a problem
   }
 }
+
 
 
   @override
