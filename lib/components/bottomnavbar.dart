@@ -54,7 +54,7 @@ class _BottomnavbarState extends State<Bottomnavbar> {
             label: 'Search',
           ),
           BottomNavigationBarItem(
-            backgroundColor: Color(0xFF32CD32),
+            backgroundColor: Color.fromARGB(255, 29, 87, 29),
             icon: Icon(Icons.add),
             label: 'Add',
           ),

@@ -47,22 +47,23 @@ class _HomePageState extends State<HomePage> {
   Future<void> fetchBooks() async {
   try {
     final response = await http.get(Uri.parse('http://192.168.0.102:8000/api/books/3'));
+
     print('Status Code: ${response.statusCode}');
     print('Response Body: ${response.body}');
 
     if (response.statusCode == 200) {
-      final List<dynamic> data = json.decode(response.body);
+      final Map<String, dynamic> data = json.decode(response.body); // Single object instead of List
       setState(() {
-        books = data.map((bookData) => Book.fromJson(bookData)).toList();
+        books = [Book.fromJson(data)]; // Wrap the single book in a list
       });
     } else {
-      throw Exception('Failed to load books: ${response.statusCode}');
+      throw Exception('Failed to load book: ${response.statusCode}');
     }
   } catch (e) {
     print('Error: $e');
-    // Optionally show a dialog or message to the user if there is a problem
   }
 }
+
 
 
 
