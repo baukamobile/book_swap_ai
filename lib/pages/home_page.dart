@@ -46,7 +46,8 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> fetchBooks() async {
   try {
-    final response = await http.get(Uri.parse('http://192.168.0.102:8000/api/books/3'));
+    final response = await http.get(Uri.parse('http://192.168.0.102:8000/api/books/3/'));
+
 
     print('Status Code: ${response.statusCode}');
     print('Response Body: ${response.body}');
@@ -63,6 +64,8 @@ class _HomePageState extends State<HomePage> {
     print('Error: $e');
   }
 }
+
+
 
 
 
