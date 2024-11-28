@@ -130,7 +130,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             },
                           ),
                         )
-                      : const Center(child: Text('No books available.')),
+                      : const Center(child: Text('No books.')),
                 ],
               ),
             ],
