@@ -59,7 +59,7 @@ class _SearchPageState extends State<SearchPage> {
 
             // Filter Row (Sorting, Location, Genre, AI Chat)
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 // Sorting Dropdown
                 _buildDropdown(
