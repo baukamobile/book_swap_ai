@@ -23,7 +23,7 @@ class Book {
       author: json['author'],
       description: json['description'],
       condition: json['condition'],
-      imageUrl: json['image'],  // This is the image URL returned by the API
+      imageUrl: json['image'],
     );
   }
 }
@@ -45,48 +45,89 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<void> fetchBooks() async {
-  try {
-    final response = await http.get(Uri.parse('http://192.168.0.102:8000/api/books/3/'));
+    try {
+      final response = await http.get(Uri.parse('http://192.168.0.100:8000/api/books/3/'));
 
+      print('Status Code: ${response.statusCode}');
+      print('Response Body: ${response.body}');
 
-    print('Status Code: ${response.statusCode}');
-    print('Response Body: ${response.body}');
-
-    if (response.statusCode == 200) {
-      final Map<String, dynamic> data = json.decode(response.body); // Single object instead of List
-      setState(() {
-        books = [Book.fromJson(data)]; // Wrap the single book in a list
-      });
-    } else {
-      throw Exception('Failed to load book: ${response.statusCode}');
+      if (response.statusCode == 200) {
+        final Map<String, dynamic> data = json.decode(response.body);
+        setState(() {
+          books = [Book.fromJson(data)];
+        });
+      } else {
+        throw Exception('Failed to load book: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Error: $e');
     }
-  } catch (e) {
-    print('Error: $e');
   }
-}
-
-
-
-
-
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('nothing'),
-      
-      centerTitle: true,),
+      appBar: AppBar(
+        title: const Text('Books'),
+        centerTitle: true,
+      ),
       body: books.isEmpty
-          ? Center(child: CircularProgressIndicator())
+          ? const Center(child: CircularProgressIndicator())
           : ListView.builder(
               itemCount: books.length,
               itemBuilder: (context, index) {
                 final book = books[index];
                 return Card(
-                  child: ListTile(
-                    leading: Image.network(book.imageUrl),  // Display book image from the URL
-                    title: Text(book.title),
-                    subtitle: Text('${book.author}\nCondition: ${book.condition}'),
+                  margin: const EdgeInsets.all(10),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      ClipRRect(
+                        borderRadius: const BorderRadius.vertical(top: Radius.circular(15)),
+                        child: Image.network(
+                          book.imageUrl,
+                          width: double.infinity,
+                          height: 550,
+
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              book.title,
+                              style: const TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const SizedBox(height: 5),
+                            Text(
+                              book.author,
+                              style: const TextStyle(fontSize: 16),
+                            ),
+                            const SizedBox(height: 5),
+                            Text(
+                              'Condition: ${book.condition}',
+                              style: const TextStyle(fontSize: 14, color: Colors.grey),
+                            ),
+                            const SizedBox(height: 10),
+                            Text(
+                              book.description,
+                              style: const TextStyle(fontSize: 14),
+                              maxLines: 3,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
                 );
               },
