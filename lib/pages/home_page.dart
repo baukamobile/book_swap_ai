@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:http/http.dart' as http;
 
 class Book {
@@ -29,7 +30,7 @@ class Book {
 }
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -37,6 +38,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List<Book> books = [];
+  final CardSwiperController _controller = CardSwiperController();
 
   @override
   void initState() {
@@ -47,9 +49,6 @@ class _HomePageState extends State<HomePage> {
   Future<void> fetchBooks() async {
     try {
       final response = await http.get(Uri.parse('https://testbackendflutter-0471b16deb32.herokuapp.com/api/books/4/'));
-
-      print('Status Code: ${response.statusCode}');
-      print('Response Body: ${response.body}');
 
       if (response.statusCode == 200) {
         final Map<String, dynamic> data = json.decode(response.body);
@@ -63,75 +62,87 @@ class _HomePageState extends State<HomePage> {
       print('Error: $e');
     }
   }
-  //nothing to show here
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Books'),
-        centerTitle: true,
       ),
       body: books.isEmpty
           ? const Center(child: CircularProgressIndicator())
-          : ListView.builder(
-              itemCount: books.length,
-              itemBuilder: (context, index) {
-                final book = books[index];
-                return Card(
-                  margin: const EdgeInsets.all(10),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      ClipRRect(
-                        borderRadius: const BorderRadius.vertical(top: Radius.circular(15)),
-                        child: Image.network(
-                          book.imageUrl,
-                          width: double.infinity,
-                          height: 550,
-
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              book.title,
-                              style: const TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
+          : SafeArea(
+              child: Column(
+                children: [
+                  Expanded(
+                    child: CardSwiper(
+                      controller: _controller,
+                      cardsCount: books.length,
+                      cardBuilder: (context, index, _, __) {
+                        final book = books[index];
+                        return Card(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          child: Column(
+                            children: [
+                              Expanded(
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(15),
+                                  child: Image.network(
+                                    book.imageUrl,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
                               ),
-                            ),
-                            const SizedBox(height: 5),
-                            Text(
-                              book.author,
-                              style: const TextStyle(fontSize: 16),
-                            ),
-                            const SizedBox(height: 5),
-                            Text(
-                              'Condition: ${book.condition}',
-                              style: const TextStyle(fontSize: 14, color: Colors.grey),
-                            ),
-                            const SizedBox(height: 10),
-                            Text(
-                              book.description,
-                              style: const TextStyle(fontSize: 14),
-                              maxLines: 3,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
+                              Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      book.title,
+                                      style: const TextStyle(
+                                          fontSize: 18, fontWeight: FontWeight.bold),
+                                    ),
+                                    Text('Author: ${book.author}'),
+                                    Text('Condition: ${book.condition}'),
+                                    Text(
+                                      book.description,
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    ),
                   ),
-                );
-              },
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        FloatingActionButton(
+                          onPressed: _controller.undo,
+                          child: const Icon(Icons.rotate_left),
+                        ),
+                        FloatingActionButton(
+                          onPressed: () => _controller.swipe(CardSwiperDirection.left),
+                          child: const Icon(Icons.arrow_left),
+                        ),
+                        FloatingActionButton(
+                          onPressed: () => _controller.swipe(CardSwiperDirection.right),
+                          child: const Icon(Icons.arrow_right),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
     );
   }

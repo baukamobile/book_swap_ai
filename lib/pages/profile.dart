@@ -83,9 +83,9 @@ class _ProfilePageState extends State<ProfilePage> {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 20),
                 child:Row(
-  mainAxisAlignment: MainAxisAlignment.spaceBetween, // Adjust horizontal alignment
-  crossAxisAlignment: CrossAxisAlignment.center, // Adjust vertical alignment
-  children: [
+                mainAxisAlignment: MainAxisAlignment.spaceBetween, // Adjust horizontal alignment
+                  crossAxisAlignment: CrossAxisAlignment.center, // Adjust vertical alignment
+            children: [
     IconButton(
       onPressed: () {
         Navigator.of(context).push(MaterialPageRoute(builder: (context) => LoginPage()));
