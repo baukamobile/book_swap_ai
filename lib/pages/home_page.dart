@@ -134,14 +134,18 @@ class _HomePageState extends State<HomePage> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         FloatingActionButton(
+                          backgroundColor: Colors.amber[400],
                           onPressed: _controller.undo,
-                          child: const Icon(Icons.rotate_left),
+                          child: const Icon(Icons.rotate_left,color: Colors.white,),
+                          
                         ),
                         FloatingActionButton(
+                          backgroundColor: Colors.red[400],
                           onPressed: () => _controller.swipe(CardSwiperDirection.left),
                           child: const Icon(Icons.arrow_left),
                         ),
                         FloatingActionButton(
+                          backgroundColor: Colors.green[400],
                           onPressed: () => _controller.swipe(CardSwiperDirection.right),
                           child: const Icon(Icons.arrow_right),
                         ),
