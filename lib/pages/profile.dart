@@ -79,18 +79,53 @@ class _ProfilePageState extends State<ProfilePage> {
           padding: const EdgeInsets.all(25.0),
           child: ListView(
             children: [
+
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 20),
-                child: Align(
-                  alignment: Alignment.topRight,
-                  child: IconButton(
-                    onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => LoginPage()));
-                    },
-                    icon: Icon(Icons.exit_to_app),
-                  ),
-                ),
+                child:Row(
+  mainAxisAlignment: MainAxisAlignment.spaceBetween, // Adjust horizontal alignment
+  crossAxisAlignment: CrossAxisAlignment.center, // Adjust vertical alignment
+  children: [
+    IconButton(
+      onPressed: () {
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) => LoginPage()));
+      },
+      icon: Icon(Icons.bookmark),
+    ),
+    IconButton(
+      onPressed: () {
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) => LoginPage()));
+      },
+      icon: Icon(Icons.exit_to_app),
+    ),
+  ],
+),
               ),
+                
+              //    Align(
+              //     alignment: Alignment.topRight,
+              //     child: IconButton(
+              //       onPressed: () {
+              //         Navigator.of(context).push(MaterialPageRoute(builder: (context) => LoginPage()));
+              //       },
+              //       icon: Icon(Icons.exit_to_app),
+              //     ),
+              //   ),
+              // ),
+              // Padding(
+              //   padding: const EdgeInsets.symmetric(vertical: 20),
+              //   child: Align(
+              //     alignment: Alignment.topLeft,
+              //     child: IconButton(
+              //       onPressed: () {
+              //         Navigator.of(context).push(MaterialPageRoute(builder: (context) => LoginPage()));
+              //       },
+              //       icon: Icon(Icons.bookmark),
+              //     ),
+              //   ),
+              // ),
+          
+          
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
