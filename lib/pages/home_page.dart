@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';  // Import for random selection
 import 'package:flutter/material.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:http/http.dart' as http;
@@ -48,15 +49,20 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> fetchBooks() async {
     try {
-      final response = await http.get(Uri.parse('https://testbackendflutter-0471b16deb32.herokuapp.com/api/books/4/'));
+      final response = await http.get(Uri.parse('https://testbackendflutter-0471b16deb32.herokuapp.com/api/books/'));
 
       if (response.statusCode == 200) {
-        final Map<String, dynamic> data = json.decode(response.body);
+        final List<dynamic> data = json.decode(response.body);
+        List<Book> allBooks = data.map((json) => Book.fromJson(json)).toList();
+
+        // Randomly select between 3 to 7 books without repetition
+        int randomCount = Random().nextInt(5) + 3;
+        allBooks.shuffle();
         setState(() {
-          books = [Book.fromJson(data)];
+          books = allBooks.take(randomCount).toList();
         });
       } else {
-        throw Exception('Failed to load book: ${response.statusCode}');
+        throw Exception('Failed to load books: ${response.statusCode}');
       }
     } catch (e) {
       print('Error: $e');
@@ -92,6 +98,7 @@ class _HomePageState extends State<HomePage> {
                                   child: Image.network(
                                     book.imageUrl,
                                     fit: BoxFit.cover,
+                                    errorBuilder: (context, error, stackTrace) => const Icon(Icons.error),
                                   ),
                                 ),
                               ),
