@@ -3,6 +3,7 @@ import 'package:book_swap_ai/pages/auth/login_page.dart';
 import 'package:book_swap_ai/pages/chat_page.dart';
 import 'package:book_swap_ai/pages/profile.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
