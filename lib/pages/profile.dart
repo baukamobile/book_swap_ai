@@ -88,7 +88,7 @@ class _ProfilePageState extends State<ProfilePage> {
             children: [
     IconButton(
       onPressed: () {
-        Navigator.of(context).push(MaterialPageRoute(builder: (context) => LoginPage()));
+        // Navigator.of(context).push(MaterialPageRoute(builder: (context) => LoginPage()));
       },
       icon: Icon(Icons.bookmark),
     ),
