@@ -37,7 +37,7 @@ class _LoginPageState extends State<LoginPage> {
     };
 
     final response = await http.post(
-      Uri.parse('http://your-django-api-url/api/auth/login/'),  // Replace with your Django API login URL
+      Uri.parse('https://testbackendflutter-0471b16deb32.herokuapp.com/api/login/'),  // Replace with your Django API login URL
       headers: {'Content-Type': 'application/json'},
       body: json.encode(loginData),
     );

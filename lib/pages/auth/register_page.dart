@@ -17,44 +17,50 @@ class _RegisterPageState extends State<RegisterPage> {
   final _passwordController = TextEditingController();
 
   Future<void> register() async {
-    String email = _emailController.text;
-    String username = _nameController.text;
-    String password = _passwordController.text;
+  String email = _emailController.text.trim();
+  String name = _nameController.text.trim();
+  String password = _passwordController.text.trim();
 
-    // Send HTTP POST request to Django API
-    try {
-      final response = await http.post(
-        Uri.parse('https://testbackendflutter-0471b16deb32.herokuapp.com/api/register/'),
-        body: json.encode({
-          'email': email,
-          'username': username,
-          'password': password,
-        }),
-        headers: {
-          'Content-Type': 'application/json',
-        },
+  if (email.isEmpty || name.isEmpty || password.isEmpty) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('All fields are required')),
+    );
+    return;
+  }
+
+  try {
+    final response = await http.post(
+      Uri.parse('https://testbackendflutter-0471b16deb32.herokuapp.com/api/register/'),
+      body: json.encode({
+        'email': email,
+        'name': name,
+        'password': password,
+      }),
+      headers: {'Content-Type': 'application/json'},
+    );
+
+    print('Response status: ${response.statusCode}');
+    print('Response body: ${response.body}');
+
+    if (response.statusCode == 201 || response.statusCode == 200) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => LoginPage()),
       );
-
-      if (response.statusCode == 201) {
-        // Successful registration, navigate to login page
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => LoginPage()),
-        );
-      } else {
-        // Handle registration error
-        final error = json.decode(response.body)['error'];
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Registration failed: $error')),
-        );
-      }
-    } catch (e) {
-      print('Error: $e');
+    } else {
+      final error = json.decode(response.body)['error'] ?? 'Unknown error';
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Failed to connect to server')),
+        SnackBar(content: Text('Registration failed: $error')),
       );
     }
+  } catch (e) {
+    print('Error: $e');
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Failed to connect to server')),
+    );
   }
+}
+
 
   @override
   Widget build(BuildContext context) {
