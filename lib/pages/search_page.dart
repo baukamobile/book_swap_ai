@@ -1,16 +1,38 @@
-import 'package:book_swap_ai/pages/chatting.dart';
+import 'dart:convert';
+import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:book_swap_ai/pages/chatting.dart';
+import 'package:http/http.dart' as http;
 
-List<String> genres = <String>[
-  'Fiction', 'Mystery', 'Fantasy', 'Sci-Fi', 
-  'Romance', 'Thriller', 'Horror', 
-  'Dystopian', 'Classics', 'Biography', 
-  'Memoirs', 'Self-Help', 'Non-Fiction', 'Adventure', 
-  'Poetry'
-];
+class Book {
+  final String title;
+  final String author;
+  final String description;
+  final String condition;
+  final String imageUrl;
 
-List<String> sorts = <String>['low to high', 'high to low', 'New In'];
-List<String> cities = <String>['Astana', 'Almaty', 'Shymkent', 'Aktobe', 'Karagandy'];
+  Book({
+    required this.title,
+    required this.author,
+    required this.description,
+    required this.condition,
+    required this.imageUrl,
+  });
+
+  factory Book.fromJson(Map<String, dynamic> json) {
+    return Book(
+      title: json['title'],
+      author: json['author'],
+      description: json['description'],
+      condition: json['condition'],
+      imageUrl: json['image'],
+    );
+  }
+}
+
+List<String> genres = ['Fiction', 'Mystery', 'Fantasy', 'Sci-Fi', 'Romance'];
+List<String> sorts = ['low to high', 'high to low', 'New In'];
+List<String> cities = ['Astana', 'Almaty', 'Shymkent', 'Aktobe', 'Karagandy'];
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -23,18 +45,44 @@ class _SearchPageState extends State<SearchPage> {
   String dropdownValue = genres.first;
   String dropdownValue2 = sorts.first;
   String dropdownValue3 = cities.first;
+  List<Book> books = [];
+
+  Future<void> fetchBooks() async {
+    try {
+      final response = await http.get(Uri.parse(
+          'https://testbackendflutter-0471b16deb32.herokuapp.com/api/books/'));
+      if (response.statusCode == 200) {
+        final List<dynamic> data = json.decode(response.body);
+        List<Book> allBooks = data.map((json) => Book.fromJson(json)).toList();
+
+        // Randomly select between 3 to 7 books without repetition
+        int randomCount = Random().nextInt(5) + 11;
+        allBooks.shuffle();
+        setState(() {
+          books = allBooks.take(randomCount).toList();
+        });
+      } else {
+        throw Exception('Failed to load books: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Error: $e');
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fetchBooks();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: ListView(
-          padding: const EdgeInsets.symmetric(vertical: 45),
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
           children: [
-            // Search Bar
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Expanded(
                   child: TextField(
@@ -48,7 +96,7 @@ class _SearchPageState extends State<SearchPage> {
                 ),
                 const SizedBox(width: 10),
                 IconButton(
-                  icon: const Icon(Icons.search, size: 50),
+                  icon: const Icon(Icons.search, size: 30),
                   onPressed: () {
                     // Add your search functionality here
                   },
@@ -56,92 +104,106 @@ class _SearchPageState extends State<SearchPage> {
               ],
             ),
             const SizedBox(height: 20),
-
-            // Filter Row (Sorting, Location, Genre, AI Chat)
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                // Sorting Dropdown
                 _buildDropdown(
                   value: dropdownValue2,
                   icon: Icons.sort,
                   items: sorts,
-                  onChanged: (String? value) {
-                    setState(() {
-                      dropdownValue2 = value!;
-                    });
-                  },
+                  onChanged: (value) => setState(() {
+                    dropdownValue2 = value!;
+                  }),
                 ),
-                
-                // Location Dropdown
                 _buildDropdown(
                   value: dropdownValue3,
                   icon: Icons.location_on,
                   items: cities,
-                  onChanged: (String? value) {
-                    setState(() {
-                      dropdownValue3 = value!;
-                    });
-                  },
+                  onChanged: (value) => setState(() {
+                    dropdownValue3 = value!;
+                  }),
                 ),
-
-                // Genre Dropdown
                 _buildDropdown(
                   value: dropdownValue,
                   icon: Icons.arrow_downward,
                   items: genres,
-                  onChanged: (String? value) {
-                    setState(() {
-                      dropdownValue = value!;
-                    });
-                  },
+                  onChanged: (value) => setState(() {
+                    dropdownValue = value!;
+                  }),
                 ),
-
-                // AI Chat Image InkWell
-                _buildAiChatButton(context),
+                InkWell(
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => GeminiChat()),
+                  ),
+                  child: Image.asset('assets/img/ai.jpg', width: 40),
+                ),
               ],
             ),
+            // const SizedBox(height: 20),
+            books.isEmpty
+                ? const Center(child: Text("No books available"))
+                : Expanded(
+                    child: GridView.builder(
+  padding: const EdgeInsets.all(10),
+  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+    crossAxisCount: 2, // Number of columns
+    crossAxisSpacing: 10, // Horizontal spacing between items
+    mainAxisSpacing: 10, // Vertical spacing between items
+  ),
+  itemCount: books.length,
+  itemBuilder: (BuildContext context, int index) {
+                        final book = books[index];
+                        return Container(
+                          width: 100,
+                          height: 250,
+
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Card(
+                              // margin: EdgeInsets.all(10),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  children: [
+                                    Image.network(book.imageUrl,width: 105,),
+                                    Text(book.title),
+                                    Text(
+                                  '${book.author}\nCondition: ${book.condition}'),
+                                    
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
           ],
         ),
       ),
     );
   }
 
-  // Custom Dropdown Widget
   Widget _buildDropdown({
     required String value,
     required IconData icon,
     required List<String> items,
     required ValueChanged<String?> onChanged,
   }) {
-    return Container(
-      width: 100,  // Consistent width for dropdowns
-      child: DropdownButton<String>(
-        value: value,
-        icon: Icon(icon),
-        elevation: 16,
-        style: const TextStyle(color: Colors.deepPurple),
-        onChanged: onChanged,
-        items: items.map<DropdownMenuItem<String>>((String value) {
-          return DropdownMenuItem<String>(
-            value: value,
-            child: Text(value),
-          );
-        }).toList(),
-      ),
-    );
-  }
-
-  // AI Chat Button (Image InkWell)
-  Widget _buildAiChatButton(BuildContext context) {
-    return Container(
-      child: InkWell(
-        onTap: () => Navigator.push(
-          context, 
-          MaterialPageRoute(builder: (context) => GeminiChat())
-        ),
-        child: Image.asset('assets/img/ai.jpg', width: 30),
-      ),
+    return DropdownButton<String>(
+      value: value,
+      icon: Icon(icon),
+      elevation: 16,
+      style: const TextStyle(color: Colors.deepPurple),
+      onChanged: onChanged,
+      items: items.map<DropdownMenuItem<String>>((value) {
+        return DropdownMenuItem<String>(
+          value: value,
+          child: Text(value),
+        );
+      }).toList(),
     );
   }
 }
