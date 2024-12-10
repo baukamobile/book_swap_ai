@@ -1,4 +1,5 @@
 import 'package:book_swap_ai/components/chat_with_them.dart';
+import 'package:book_swap_ai/components/models/chat_screen.dart';
 import 'package:book_swap_ai/pages/chatting.dart';
 import 'package:flutter/material.dart';
 // List<String> genres = <String>['fantasy', 'Fiction', 'Detective', 'Drama'];
@@ -67,12 +68,17 @@ class _ChatPageState extends State<ChatPage> {
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
                   children:[
-                     ChatWithThem(
-                      name: "Sam",
-                      lastname: "Smith", 
-                      message: "Это полезно, например, для создания ",
-                      book: "Crime And Punishment",
-                      ),
+                     GestureDetector(
+                      onTap: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=> ChatScreen()));
+                      },
+                       child: ChatWithThem(
+                        name: "Sam",
+                        lastname: "Smith", 
+                        message: "Это полезно, например, для создания ",
+                        book: "Crime And Punishment",
+                        ),
+                     ),
                       SizedBox(height: 10,),
                        ChatWithThem(
                       name: "Sam",
