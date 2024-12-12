@@ -76,80 +76,83 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Books'),
-      ),
-      body: books.isEmpty
-          ? const Center(child: CircularProgressIndicator())
-          : SafeArea(
-              child: Column(
-                children: [
-                  Expanded(
-                    child: CardSwiper(
-                      controller: _controller,
-                      cardsCount: books.length,
-                      cardBuilder: (context, index, _, __) {
-                        final book = books[index];
-                        return Card(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          child: Column(
-                            children: [
-                              Expanded(
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(15),
-                                  child: Image.network(
-                                    book.imageUrl,
-                                    fit: BoxFit.cover,
-                                    errorBuilder: (context, error, stackTrace) => const Icon(Icons.error),
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.amber,
+          title: const Text('Books'),
+        ),
+        body: books.isEmpty
+            ? const Center(child: CircularProgressIndicator())
+            : SafeArea(
+                child: Column(
+                  children: [
+                    Expanded(
+                      child: CardSwiper(
+                        controller: _controller,
+                        cardsCount: books.length,
+                        cardBuilder: (context, index, _, __) {
+                          final book = books[index];
+                          return Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            child: Column(
+                              children: [
+                                Expanded(
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(15),
+                                    child: Image.network(
+                                      book.imageUrl,
+                                      fit: BoxFit.cover,
+                                      errorBuilder: (context, error, stackTrace) => const Icon(Icons.error),
+                                    ),
                                   ),
                                 ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      book.title,
-                                      style: const TextStyle(
-                                          fontSize: 18, fontWeight: FontWeight.bold),
-                                    ),
-                                    Text('Author: ${book.author}'),
-                                    Text('Condition: ${book.condition}'),
-                                    Text(
-                                      book.description,
-                                      maxLines: 2,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                  ],
+                                Padding(
+                                  padding: const EdgeInsets.all(5.0),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        book.title,
+                                        style: const TextStyle(
+                                            fontSize: 18, fontWeight: FontWeight.bold),
+                                      ),
+                                      Text('Author: ${book.author}'),
+                                      Text('Condition: ${book.condition}'),
+                                      Text(
+                                        book.description,
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          FloatingActionButton(
+                            backgroundColor: Colors.amber[400],
+                            onPressed: _controller.undo,
+                            child: const Icon(Icons.rotate_left,color: Colors.white,),
+                            
                           ),
-                        );
-                      },
+                        ],
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        FloatingActionButton(
-                          backgroundColor: Colors.amber[400],
-                          onPressed: _controller.undo,
-                          child: const Icon(Icons.rotate_left,color: Colors.white,),
-                          
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
+      ),
     );
   }
 }
