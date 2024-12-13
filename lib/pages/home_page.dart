@@ -109,9 +109,9 @@ class _HomePageState extends State<HomePage> {
                                         errorBuilder: (context, error, stackTrace) => const Icon(Icons.error),
                                       ),
                                       // SizedBox(height: 100,),
-                                      IconButton(onPressed: (){
+                                      // IconButton(onPressed: (){
 
-                                      }, icon: Icon(Icons.chat_bubble_outlined,size: 40,color: Colors.amber,)),
+                                      // }, icon: Icon(Icons.chat_bubble_outlined,size: 40,color: Colors.amber,)),
                                       
                                       ]
                                     ),
@@ -122,11 +122,23 @@ class _HomePageState extends State<HomePage> {
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      Text(
-                                        book.title,
-                                        style: const TextStyle(
-                                            fontSize: 18, fontWeight: FontWeight.bold),
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            book.title,
+                                            style: const TextStyle(
+                                                fontSize: 18, fontWeight: FontWeight.bold),
+                                          ),
+                                          GestureDetector(
+                                        onTap: (){
+                                          
+                                        },
+                                        child: Image(image: AssetImage('assets/img/chat.png'),width: 40,),
                                       ),
+                                        ],
+                                      ),
+                                      
                                       Text('Author: ${book.author}'),
                                       Text('Condition: ${book.condition}'),
                                       Text(
