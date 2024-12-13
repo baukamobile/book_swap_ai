@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:math'; // Import for random selection
+import 'package:book_swap_ai/pages/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:http/http.dart' as http;
@@ -10,6 +11,7 @@ class Book {
   final String description;
   final String condition;
   final String imageUrl;
+  final String owner;
 
   Book({
     required this.title,
@@ -17,6 +19,7 @@ class Book {
     required this.description,
     required this.condition,
     required this.imageUrl,
+    required this.owner,
   });
 
   factory Book.fromJson(Map<String, dynamic> json) {
@@ -26,6 +29,7 @@ class Book {
       description: json['description'],
       condition: json['condition'],
       imageUrl: json['image'],
+      owner: json['owner']['name'],
     );
   }
 }
@@ -43,12 +47,16 @@ class _HomePageState extends State<HomePage> {
 
   // ];
   final CardSwiperController _controller = CardSwiperController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
 
   @override
   void initState() {
     super.initState();
     fetchBooks();
   }
+  
 
   Future<void> fetchBooks() async {
     try {
@@ -142,7 +150,7 @@ class _HomePageState extends State<HomePage> {
                                                   width: 40,
                                                 ),
                                               ),
-                                              Text("${book.author}")
+                                              Text("${book.owner}")
                                             ],
                                           ),
                                         ],
