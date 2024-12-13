@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'dart:math';  // Import for random selection
+import 'dart:math'; // Import for random selection
 import 'package:flutter/material.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:http/http.dart' as http;
@@ -30,8 +30,6 @@ class Book {
   }
 }
 
-
-
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -54,7 +52,8 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> fetchBooks() async {
     try {
-      final response = await http.get(Uri.parse('https://testbackendflutter-0471b16deb32.herokuapp.com/api/books/'));
+      final response = await http.get(Uri.parse(
+          'https://testbackendflutter-0471b16deb32.herokuapp.com/api/books/'));
 
       if (response.statusCode == 200) {
         final List<dynamic> data = json.decode(response.body);
@@ -102,43 +101,52 @@ class _HomePageState extends State<HomePage> {
                                 Expanded(
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(15),
-                                    child: Stack(
-                                      children:[ Image.network(
+                                    child: Stack(children: [
+                                      Image.network(
                                         book.imageUrl,
                                         fit: BoxFit.cover,
-                                        errorBuilder: (context, error, stackTrace) => const Icon(Icons.error),
+                                        errorBuilder:
+                                            (context, error, stackTrace) =>
+                                                const Icon(Icons.error),
                                       ),
                                       // SizedBox(height: 100,),
                                       // IconButton(onPressed: (){
 
                                       // }, icon: Icon(Icons.chat_bubble_outlined,size: 40,color: Colors.amber,)),
-                                      
-                                      ]
-                                    ),
+                                    ]),
                                   ),
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.all(5.0),
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
                                             book.title,
                                             style: const TextStyle(
-                                                fontSize: 18, fontWeight: FontWeight.bold),
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.bold),
                                           ),
-                                          GestureDetector(
-                                        onTap: (){
-                                          
-                                        },
-                                        child: Image(image: AssetImage('assets/img/chat.png'),width: 40,),
-                                      ),
+                                          Column(
+                                            children: [
+                                              GestureDetector(
+                                                onTap: () {},
+                                                child: Image(
+                                                  image: AssetImage(
+                                                      'assets/img/chat.png'),
+                                                  width: 40,
+                                                ),
+                                              ),
+                                              Text("${book.author}")
+                                            ],
+                                          ),
                                         ],
                                       ),
-                                      
                                       Text('Author: ${book.author}'),
                                       Text('Condition: ${book.condition}'),
                                       Text(
@@ -163,8 +171,10 @@ class _HomePageState extends State<HomePage> {
                           FloatingActionButton(
                             backgroundColor: Colors.amber[400],
                             onPressed: _controller.undo,
-                            child: const Icon(Icons.rotate_left,color: Colors.white,),
-                            
+                            child: const Icon(
+                              Icons.rotate_left,
+                              color: Colors.white,
+                            ),
                           ),
                         ],
                       ),
