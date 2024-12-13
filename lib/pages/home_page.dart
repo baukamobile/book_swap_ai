@@ -102,10 +102,18 @@ class _HomePageState extends State<HomePage> {
                                 Expanded(
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(15),
-                                    child: Image.network(
-                                      book.imageUrl,
-                                      fit: BoxFit.cover,
-                                      errorBuilder: (context, error, stackTrace) => const Icon(Icons.error),
+                                    child: Stack(
+                                      children:[ Image.network(
+                                        book.imageUrl,
+                                        fit: BoxFit.cover,
+                                        errorBuilder: (context, error, stackTrace) => const Icon(Icons.error),
+                                      ),
+                                      // SizedBox(height: 100,),
+                                      IconButton(onPressed: (){
+
+                                      }, icon: Icon(Icons.chat_bubble_outlined,size: 40,color: Colors.amber,)),
+                                      
+                                      ]
                                     ),
                                   ),
                                 ),
