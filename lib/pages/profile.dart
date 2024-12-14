@@ -11,6 +11,7 @@ class Book {
   final String description;
   final String condition;
   final String imageUrl;
+  final String owner;
 
   Book({
     required this.title,
@@ -18,19 +19,36 @@ class Book {
     required this.description,
     required this.condition,
     required this.imageUrl,
+    required this.owner,
   });
+
 
   factory Book.fromJson(Map<String, dynamic> json) {
     return Book(
-      title: json['title'],
-      author: json['author'],
-      description: json['description'],
-      condition: json['condition'],
-      imageUrl: json['image'], // Image URL returned by API
-    );
+        title: json['title'],
+        author: json['author'],
+        description: json['description'],
+        condition: json['condition'],
+        imageUrl: json['image'],
+        // Image URL returned by API
+        owner: json['owner']['name']);
   }
 }
-
+class User{
+  final String name;
+  final String email;
+  
+  User({
+    required this.name,
+    required this.email,
+  });
+  factory User.fromJson(Map<String, dynamic> json){
+    return User(
+      name: json['name'],
+      email: json['email'],
+      );
+  }
+}
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
 
@@ -40,6 +58,7 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   List<Book> books = [];
+  List<User> user = [];
 
   @override
   void initState() {
@@ -49,11 +68,11 @@ class _ProfilePageState extends State<ProfilePage> {
 
   Future<void> fetchBooks() async {
     try {
-      final response = await http.get(Uri.parse('https://testbackendflutter-0471b16deb32.herokuapp.com/api/books/3/'));
+      final response = await http.get(Uri.parse(
+          'https://testbackendflutter-0471b16deb32.herokuapp.com/api/books/3/'));
 
       print('Status Code: ${response.statusCode}');
       print('Response Body: ${response.body}');
-
       if (response.statusCode == 200) {
         final Map<String, dynamic> data = json.decode(response.body);
         setState(() {
@@ -63,6 +82,27 @@ class _ProfilePageState extends State<ProfilePage> {
         throw Exception('Failed to load book: ${response.statusCode}');
       }
     } catch (e) {
+      print('Error: $e');
+    }
+  }
+
+  Future<void> getUserName() async{
+    try {
+      final response = await http.get(Uri.parse(
+        'https://testbackendflutter-0471b16deb32.herokuapp.com/api/user/'
+      ),
+      );
+      print('Status Code: ${response.statusCode}');
+      print('Response Body: ${response.body}');
+      if(response.statusCode == 200){
+        final Map<String,dynamic> data = json.decode(response.body);
+        setState(() {
+          user = [User.fromJson(data)];
+        });
+      }else{
+        throw Exception('Error with network');
+      }
+    }catch(e){
       print('Error: $e');
     }
   }
@@ -79,53 +119,30 @@ class _ProfilePageState extends State<ProfilePage> {
           padding: const EdgeInsets.all(25.0),
           child: ListView(
             children: [
-
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 20),
-                child:Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween, // Adjust horizontal alignment
-                  crossAxisAlignment: CrossAxisAlignment.center, // Adjust vertical alignment
-            children: [
-    IconButton(
-      onPressed: () {
-        // Navigator.of(context).push(MaterialPageRoute(builder: (context) => LoginPage()));
-      },
-      icon: Icon(Icons.bookmark),
-    ),
-    IconButton(
-      onPressed: () {
-        Navigator.of(context).push(MaterialPageRoute(builder: (context) => LoginPage()));
-      },
-      icon: Icon(Icons.exit_to_app),
-    ),
-  ],
-),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment
+                      .spaceBetween, // Adjust horizontal alignment
+                  crossAxisAlignment:
+                      CrossAxisAlignment.center, // Adjust vertical alignment
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        // Navigator.of(context).push(MaterialPageRoute(builder: (context) => LoginPage()));
+                      },
+                      icon: Icon(Icons.bookmark),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => LoginPage()));
+                      },
+                      icon: Icon(Icons.exit_to_app),
+                    ),
+                  ],
+                ),
               ),
-                
-              //    Align(
-              //     alignment: Alignment.topRight,
-              //     child: IconButton(
-              //       onPressed: () {
-              //         Navigator.of(context).push(MaterialPageRoute(builder: (context) => LoginPage()));
-              //       },
-              //       icon: Icon(Icons.exit_to_app),
-              //     ),
-              //   ),
-              // ),
-              // Padding(
-              //   padding: const EdgeInsets.symmetric(vertical: 20),
-              //   child: Align(
-              //     alignment: Alignment.topLeft,
-              //     child: IconButton(
-              //       onPressed: () {
-              //         Navigator.of(context).push(MaterialPageRoute(builder: (context) => LoginPage()));
-              //       },
-              //       icon: Icon(Icons.bookmark),
-              //     ),
-              //   ),
-              // ),
-          
-          
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -137,7 +154,8 @@ class _ProfilePageState extends State<ProfilePage> {
                   const SizedBox(height: 20),
                   _buildProfileDetailRow("Name:", name),
                   _buildProfileDetailRow("Email:", email),
-                  _buildProfileDetailRow("Phone Number:", phoneNumber.toString()),
+                  _buildProfileDetailRow(
+                      "Phone Number:", phoneNumber.toString()),
                   const SizedBox(height: 20),
                   Container(
                     child: Text("Active Books"),
@@ -151,14 +169,18 @@ class _ProfilePageState extends State<ProfilePage> {
                             itemBuilder: (context, index) {
                               final book = books[index];
                               return InkWell(
-                                onTap: (){
-                                  Navigator.push(context, MaterialPageRoute(builder: (context)=> HomePage()));
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => HomePage()));
                                 },
                                 child: Card(
                                   child: ListTile(
                                     leading: Image.network(book.imageUrl),
                                     title: Text(book.title),
-                                    subtitle: Text('${book.author}\nCondition: ${book.condition}'),
+                                    subtitle: Text(
+                                        '${book.author}\nCondition: ${book.condition} \n Owner: ${book.owner}'),
                                   ),
                                 ),
                               );
