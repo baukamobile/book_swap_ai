@@ -30,18 +30,15 @@ class _LoginPageState extends State<LoginPage> {
       ));
       return;
     }
-
     final Map<String, String> loginData = {
       'email': email,
       'password': password,
     };
-
     final response = await http.post(
       Uri.parse('https://testbackendflutter-0471b16deb32.herokuapp.com/api/login/'),  // Replace with your Django API login URL
       headers: {'Content-Type': 'application/json'},
       body: json.encode(loginData),
     );
-
     if (response.statusCode == 200) {
       final responseData = json.decode(response.body);
       // You can save the token or any user data you get from the response
