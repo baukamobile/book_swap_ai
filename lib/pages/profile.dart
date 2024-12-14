@@ -59,7 +59,6 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   List<Book> books = [];
   List<User> user = [];
-
   @override
   void initState() {
     super.initState();
@@ -113,6 +112,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -146,12 +146,14 @@ class _ProfilePageState extends State<ProfilePage> {
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+
                   CircleAvatar(
                     radius: 75,
                     backgroundColor: Colors.grey[200],
                     backgroundImage: AssetImage('assets/img/avtr.jpg'),
                   ),
                   const SizedBox(height: 20),
+                  
                   _buildProfileDetailRow("Name:", name),
                   _buildProfileDetailRow("Email:", email),
                   _buildProfileDetailRow(
@@ -198,6 +200,7 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   Widget _buildProfileDetailRow(String label, String value) {
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -210,5 +213,6 @@ class _ProfilePageState extends State<ProfilePage> {
         IconButton(onPressed: () {}, icon: Icon(Icons.edit)),
       ],
     );
+
   }
 }
