@@ -1,8 +1,11 @@
 import 'package:book_swap_ai/pages/home_page.dart';
 import 'package:flutter/material.dart';
 
+import 'models/book.dart';
+
 class UserChat extends StatefulWidget {
-  const UserChat({super.key});
+  UserChat({super.key, required this.ownerName});
+  final String ownerName;
 
   @override
   State<UserChat> createState() => _UserChatState();
@@ -13,19 +16,21 @@ class _UserChatState extends State<UserChat> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Sam Smith"),
-        leading: IconButton(onPressed: (){
-          Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => HomePage()), // Navigate to the ProfilePage or another page
-      );
-        }, icon: Icon(Icons.arrow_back)),
+        title: Text(widget.ownerName), // Use widget.ownerName here
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => HomePage()), // Navigate to the HomePage
+            );
+          },
+          icon: Icon(Icons.arrow_back),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-           // Aligns the input bar at the bottom
+          mainAxisAlignment: MainAxisAlignment.end, // Aligns the input bar at the bottom
           children: [
             Row(
               children: [

@@ -147,7 +147,7 @@ class _HomePageState extends State<HomePage> {
                                                 onTap: () {
                                                   Navigator.pushReplacement(
                                                     context,
-                                                    MaterialPageRoute(builder: (context) => UserChat()), 
+                                                    MaterialPageRoute(builder: (context) => UserChat(ownerName: book.owner,)), 
                                                     );
                                                   
                                                 },
