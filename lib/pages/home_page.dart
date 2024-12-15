@@ -145,7 +145,7 @@ class _HomePageState extends State<HomePage> {
                                             children: [
                                               GestureDetector(
                                                 onTap: () {
-                                                  Navigator.pushReplacement(
+                                                  Navigator.push(
                                                     context,
                                                     MaterialPageRoute(builder: (context) => UserChat(ownerName: book.owner,)), 
                                                     );

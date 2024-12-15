@@ -1,7 +1,7 @@
 import 'package:book_swap_ai/pages/home_page.dart';
 import 'package:flutter/material.dart';
 
-import 'models/book.dart';
+
 
 class UserChat extends StatefulWidget {
   UserChat({super.key, required this.ownerName});
@@ -19,10 +19,7 @@ class _UserChatState extends State<UserChat> {
         title: Text(widget.ownerName), // Use widget.ownerName here
         leading: IconButton(
           onPressed: () {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => HomePage()), // Navigate to the HomePage
-            );
+  Navigator.pop(context);
           },
           icon: Icon(Icons.arrow_back),
         ),
