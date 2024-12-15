@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:math'; // Import for random selection
+import 'package:book_swap_ai/components/user_chat.dart';
 import 'package:book_swap_ai/pages/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
@@ -143,7 +144,13 @@ class _HomePageState extends State<HomePage> {
                                           Column(
                                             children: [
                                               GestureDetector(
-                                                onTap: () {},
+                                                onTap: () {
+                                                  Navigator.pushReplacement(
+                                                    context,
+                                                    MaterialPageRoute(builder: (context) => UserChat()), 
+                                                    );
+                                                  
+                                                },
                                                 child: Image(
                                                   image: AssetImage(
                                                       'assets/img/chat.png'),
