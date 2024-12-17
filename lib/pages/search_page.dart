@@ -148,7 +148,7 @@ class _SearchPageState extends State<SearchPage> {
                       child: GridView.builder(
           padding: const EdgeInsets.all(10),
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2, // Number of columns
+            crossAxisCount: 1, // Number of columns
             crossAxisSpacing: 10, // Horizontal spacing between items
             mainAxisSpacing: 10, // Vertical spacing between items
           ),
@@ -163,17 +163,13 @@ class _SearchPageState extends State<SearchPage> {
                               padding: const EdgeInsets.all(8.0),
                               child: Card(
                                 // margin: EdgeInsets.all(10),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Column(
-                                    children: [
-                                      Image.network(book.imageUrl,width: 105,),
-                                      Text(book.title),
-                                      Text(
-                                    '${book.author}\nCondition: ${book.condition}'),
-                                      
-                                    ],
-                                  ),
+                                child: Column(
+                                  children: [
+                                    Image.network(book.imageUrl,),
+                                    Text(book.title),
+                                    Text(
+                                  '${book.author}\nCondition: ${book.condition}'),
+                                  ],
                                 ),
                               ),
                             ),

@@ -69,7 +69,7 @@ class _HomePageState extends State<HomePage> {
         List<Book> allBooks = data.map((json) => Book.fromJson(json)).toList();
 
         // Randomly select between 3 to 7 books without repetition
-        int randomCount = Random().nextInt(5) + 3;
+        int randomCount = Random().nextInt(10) + 3;
         allBooks.shuffle();
         setState(() {
           books = allBooks.take(randomCount).toList();
