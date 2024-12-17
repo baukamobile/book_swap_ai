@@ -72,7 +72,8 @@ class _HomePageState extends State<HomePage> {
         int randomCount = Random().nextInt(10) + 3;
         allBooks.shuffle();
         setState(() {
-          books = allBooks.take(randomCount).toList();
+          // books = allBooks.take(randomCount).toList();
+          books = allBooks;
         });
       } else {
         throw Exception('Failed to load books: ${response.statusCode}');
