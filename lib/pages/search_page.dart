@@ -42,6 +42,7 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
+
   String dropdownValue = genres.first;
   String dropdownValue2 = sorts.first;
   String dropdownValue3 = cities.first;
@@ -146,9 +147,9 @@ class _SearchPageState extends State<SearchPage> {
                   ? const Center(child: Text("No books available"))
                   : Expanded(
                       child: GridView.builder(
-          padding: const EdgeInsets.all(10),
+          padding: const EdgeInsets.all(5),
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 1, // Number of columns
+            crossAxisCount: 2, // Number of columns
             crossAxisSpacing: 10, // Horizontal spacing between items
             mainAxisSpacing: 10, // Vertical spacing between items
           ),
@@ -156,24 +157,54 @@ class _SearchPageState extends State<SearchPage> {
           itemBuilder: (BuildContext context, int index) {
                           final book = books[index];
                           return Container(
-                            width: 100,
-                            height: 250,
-        
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Card(
-                                // margin: EdgeInsets.all(10),
-                                child: Column(
-                                  children: [
-                                    Image.network(book.imageUrl,),
-                                    Text(book.title),
-                                    Text(
-                                  '${book.author}\nCondition: ${book.condition}'),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          );
+              decoration: BoxDecoration(
+                color: Colors.amber.shade100,
+                borderRadius: BorderRadius.circular(10),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.shade300,
+                    blurRadius: 5,
+                    offset: const Offset(0, 3),
+                  ),
+                ],
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: ClipRRect(
+                      borderRadius:
+                          const BorderRadius.vertical(top: Radius.circular(10)),
+                      child: Image.network(
+                        book.imageUrl,
+                        width: double.infinity,
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) =>
+                            const Icon(Icons.broken_image, size: 50),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          book.title,
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        const SizedBox(height: 5),
+                        Text(
+                          'Condition: ${book.condition}',
+                          style: const TextStyle(color: Colors.grey),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ],
+                    ),
+                  )]));
                         },
                       ),
                     ),
