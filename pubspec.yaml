@@ -55,6 +55,7 @@ dependencies:
   dart_jsonwebtoken: ^2.14.2
   jwt_decoder: ^2.0.1
 
+#web socket
   
 dev_dependencies:
   flutter_test:
