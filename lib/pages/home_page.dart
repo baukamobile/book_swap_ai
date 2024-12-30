@@ -87,117 +87,119 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.amber,
-          title: const Text('Books'),
-        ),
-        body: books.isEmpty
-            ? const Center(child: CircularProgressIndicator())
-            : SafeArea(
-                child: Column(
-                  children: [
-                    Expanded(
-                      child: CardSwiper(
-                        controller: _controller,
-                        cardsCount: books.length,
-                        cardBuilder: (context, index, _, __) {
-                          final book = books[index];
-                          return Card(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            child: Column(
-                              children: [
-                                Expanded(
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(15),
-                                    child: Stack(children: [
-                                      Image.network(
-                                        book.imageUrl,
-                                        fit: BoxFit.cover,
-                                        errorBuilder:
-                                            (context, error, stackTrace) =>
-                                                const Icon(Icons.error),
-                                      ),
-                                      // SizedBox(height: 100,),
-                                      // IconButton(onPressed: (){
 
-                                      // }, icon: Icon(Icons.chat_bubble_outlined,size: 40,color: Colors.amber,)),
-                                    ]),
+        // appBar: AppBar(
+        //   backgroundColor: Colors.amber,
+        //   title: const Text('Books'),
+        // ),
+        body: books.isEmpty
+            ? Padding(
+              padding: const EdgeInsets.only(bottom: 50),
+              child: const Center(child: CircularProgressIndicator()),
+            )
+            : Column(
+              children: [
+                Expanded(
+                  child: CardSwiper(
+                    controller: _controller,
+                    cardsCount: books.length,
+                    cardBuilder: (context, index, _, __) {
+                      final book = books[index];
+                      return Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        child: Column(
+                          children: [
+                            Expanded(
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(15),
+                                child: Stack(children: [
+                                  Image.network(
+                                    book.imageUrl,
+                                    fit: BoxFit.cover,
+                                    errorBuilder:
+                                        (context, error, stackTrace) =>
+                                            const Icon(Icons.error),
                                   ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(5.0),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                  // SizedBox(height: 100,),
+                                  // IconButton(onPressed: (){
+            
+                                  // }, icon: Icon(Icons.chat_bubble_outlined,size: 40,color: Colors.amber,)),
+                                ]),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(5.0),
+                              child: Column(
+                                crossAxisAlignment:
+                                    CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            book.title,
-                                            style: const TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                          Column(
-                                            children: [
-                                              GestureDetector(
-                                                onTap: () {
-                                                  Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(builder: (context) => UserChat(ownerName: book.owner,)), 
-                                                    );
-                                                  
-                                                },
-                                                child: Image(
-                                                  image: AssetImage(
-                                                      'assets/img/chat.png'),
-                                                  width: 40,
-                                                ),
-                                              ),
-                                              Text("${book.owner}")
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                      Text('Author: ${book.author}'),
-                                      Text('Condition: ${book.condition}'),
                                       Text(
-                                        book.description,
-                                        maxLines: 2,
-                                        overflow: TextOverflow.ellipsis,
+                                        book.title,
+                                        style: const TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      Column(
+                                        children: [
+                                          GestureDetector(
+                                            onTap: () {
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(builder: (context) => UserChat(ownerName: book.owner,)), 
+                                                );
+                                              
+                                            },
+                                            child: Image(
+                                              image: AssetImage(
+                                                  'assets/img/chat.png'),
+                                              width: 40,
+                                            ),
+                                          ),
+                                          Text("${book.owner}")
+                                        ],
                                       ),
                                     ],
                                   ),
-                                ),
-                              ],
+                                  Text('Author: ${book.author}'),
+                                  Text('Condition: ${book.condition}'),
+                                  Text(
+                                    book.description,
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ],
+                              ),
                             ),
-                          );
-                        },
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          FloatingActionButton(
-                            backgroundColor: Colors.amber[400],
-                            onPressed: _controller.undo,
-                            child: const Icon(
-                              Icons.rotate_left,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
+                          ],
+                        ),
+                      );
+                    },
+                  ),
                 ),
-              ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      FloatingActionButton(
+                        backgroundColor: Colors.amber[400],
+                        onPressed: _controller.undo,
+                        child: const Icon(
+                          Icons.rotate_left,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
       ),
     );
   }
