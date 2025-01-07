@@ -402,7 +402,7 @@ class _SearchPageState extends State<SearchPage> {
                       child: GridView.builder(
           padding: const EdgeInsets.all(10),
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2, // Number of columns
+            crossAxisCount: 1, // Number of columns
             crossAxisSpacing: 10, // Horizontal spacing between items
             mainAxisSpacing: 10, // Vertical spacing between items
           ),
@@ -417,6 +417,7 @@ class _SearchPageState extends State<SearchPage> {
                               padding: const EdgeInsets.all(8.0),
                               child: Card(
                                 // margin: EdgeInsets.all(10),
+<<<<<<< HEAD
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Column(
@@ -429,6 +430,15 @@ class _SearchPageState extends State<SearchPage> {
                                     ],
                                   ),
 >>>>>>> 98d77da (list genres updated and padding. i should update size of app)
+=======
+                                child: Column(
+                                  children: [
+                                    Image.network(book.imageUrl,),
+                                    Text(book.title),
+                                    Text(
+                                  '${book.author}\nCondition: ${book.condition}'),
+                                  ],
+>>>>>>> 775912f (search page book image size changed but still not correctly)
                                 ),
                               ),
                             ),
