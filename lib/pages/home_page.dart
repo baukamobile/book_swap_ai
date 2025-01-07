@@ -30,6 +30,8 @@ class Book {
   }
 }
 
+
+
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -39,6 +41,9 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List<Book> books = [];
+  // List<Book> bookAPI = [
+
+  // ];
   final CardSwiperController _controller = CardSwiperController();
 
   @override

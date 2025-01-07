@@ -1,4 +1,5 @@
 import 'dart:convert';
+<<<<<<< HEAD
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -13,6 +14,20 @@ class Book {
   final String condition;
   final String imageUrl;
 
+=======
+import 'dart:math';
+import 'package:flutter/material.dart';
+import 'package:book_swap_ai/pages/chatting.dart';
+import 'package:http/http.dart' as http;
+
+class Book {
+  final String title;
+  final String author;
+  final String description;
+  final String condition;
+  final String imageUrl;
+
+>>>>>>> e99f00d (search page error with size books)
   Book({
     required this.title,
     required this.author,
@@ -32,12 +47,18 @@ class Book {
   }
 }
 
+<<<<<<< HEAD
 List<String> sorts = <String>['low to high', 'high to low', 'New In'];
 List<String> cities = <String>['Astana', 'Almaty', 'Shymkent', 'Aktobe', 'Karagandy'];
 List<Book> books = [];
 String dropdownValue = genres.first;
 String dropdownValue2 = sorts.first;
 String dropdownValue3 = cities.first;
+=======
+List<String> genres = ['Fiction', 'Mystery', 'Fantasy', 'Sci-Fi', 'Romance'];
+List<String> sorts = ['low to high', 'high to low', 'New In'];
+List<String> cities = ['Astana', 'Almaty', 'Shymkent', 'Aktobe', 'Karagandy'];
+>>>>>>> e99f00d (search page error with size books)
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -47,6 +68,7 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
+<<<<<<< HEAD
   @override
   void initState() {
     super.initState();
@@ -63,12 +85,36 @@ class _SearchPageState extends State<SearchPage> {
         });
       } else {
         throw Exception('Failed to load books');
+=======
+  String dropdownValue = genres.first;
+  String dropdownValue2 = sorts.first;
+  String dropdownValue3 = cities.first;
+  List<Book> books = [];
+
+  Future<void> fetchBooks() async {
+    try {
+      final response = await http.get(Uri.parse(
+          'https://testbackendflutter-0471b16deb32.herokuapp.com/api/books/'));
+      if (response.statusCode == 200) {
+        final List<dynamic> data = json.decode(response.body);
+        List<Book> allBooks = data.map((json) => Book.fromJson(json)).toList();
+
+        // Randomly select between 3 to 7 books without repetition
+        int randomCount = Random().nextInt(5) + 11;
+        allBooks.shuffle();
+        setState(() {
+          books = allBooks.take(randomCount).toList();
+        });
+      } else {
+        throw Exception('Failed to load books: ${response.statusCode}');
+>>>>>>> e99f00d (search page error with size books)
       }
     } catch (e) {
       print('Error: $e');
     }
   }
 
+<<<<<<< HEAD
   // Build Dropdown for Genre, Sort, and Location
   Widget _buildDropdown({
     required String value,
@@ -100,18 +146,26 @@ class _SearchPageState extends State<SearchPage> {
         // Implement AI Chat functionality here
       },
     );
+=======
+  @override
+  void initState() {
+    super.initState();
+    fetchBooks();
+>>>>>>> e99f00d (search page error with size books)
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
+<<<<<<< HEAD
         padding: const EdgeInsets.all(8.0),
+=======
+        padding: const EdgeInsets.all(16.0),
+>>>>>>> e99f00d (search page error with size books)
         child: Column(
           children: [
-            // Search Bar
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Expanded(
                   child: TextField(
@@ -132,9 +186,13 @@ class _SearchPageState extends State<SearchPage> {
                 ),
               ],
             ),
+<<<<<<< HEAD
             const SizedBox(height: 15),
 
             // Filter Row (Sorting, Location, Genre, AI Chat)
+=======
+            const SizedBox(height: 20),
+>>>>>>> e99f00d (search page error with size books)
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -142,32 +200,34 @@ class _SearchPageState extends State<SearchPage> {
                   value: dropdownValue2,
                   icon: Icons.sort,
                   items: sorts,
-                  onChanged: (String? value) {
-                    setState(() {
-                      dropdownValue2 = value!;
-                    });
-                  },
+                  onChanged: (value) => setState(() {
+                    dropdownValue2 = value!;
+                  }),
                 ),
                 _buildDropdown(
                   value: dropdownValue3,
                   icon: Icons.location_on,
                   items: cities,
-                  onChanged: (String? value) {
-                    setState(() {
-                      dropdownValue3 = value!;
-                    });
-                  },
+                  onChanged: (value) => setState(() {
+                    dropdownValue3 = value!;
+                  }),
                 ),
                 _buildDropdown(
                   value: dropdownValue,
                   icon: Icons.arrow_downward,
                   items: genres,
-                  onChanged: (String? value) {
-                    setState(() {
-                      dropdownValue = value!;
-                    });
-                  },
+                  onChanged: (value) => setState(() {
+                    dropdownValue = value!;
+                  }),
                 ),
+                InkWell(
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => GeminiChat()),
+                  ),
+                  child: Image.asset('assets/img/ai.jpg', width: 40),
+                ),
+<<<<<<< HEAD
                 _buildAiChatButton(context),
               ],
             ),
@@ -231,9 +291,77 @@ class _SearchPageState extends State<SearchPage> {
                     )
                   : const Center(child: CircularProgressIndicator()),
             ),
+=======
+              ],
+            ),
+            // const SizedBox(height: 20),
+            books.isEmpty
+                ? const Center(child: Text("No books available"))
+                : Expanded(
+                    child: GridView.builder(
+  padding: const EdgeInsets.all(10),
+  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+    crossAxisCount: 2, // Number of columns
+    crossAxisSpacing: 10, // Horizontal spacing between items
+    mainAxisSpacing: 10, // Vertical spacing between items
+  ),
+  itemCount: books.length,
+  itemBuilder: (BuildContext context, int index) {
+                        final book = books[index];
+                        return Container(
+                          width: 100,
+                          height: 250,
+
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Card(
+                              // margin: EdgeInsets.all(10),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  children: [
+                                    Image.network(book.imageUrl,width: 105,),
+                                    Text(book.title),
+                                    Text(
+                                  '${book.author}\nCondition: ${book.condition}'),
+                                    
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+>>>>>>> e99f00d (search page error with size books)
           ],
         ),
       ),
     );
   }
+<<<<<<< HEAD
+=======
+
+  Widget _buildDropdown({
+    required String value,
+    required IconData icon,
+    required List<String> items,
+    required ValueChanged<String?> onChanged,
+  }) {
+    return DropdownButton<String>(
+      value: value,
+      icon: Icon(icon),
+      elevation: 16,
+      style: const TextStyle(color: Colors.deepPurple),
+      onChanged: onChanged,
+      items: items.map<DropdownMenuItem<String>>((value) {
+        return DropdownMenuItem<String>(
+          value: value,
+          child: Text(value),
+        );
+      }).toList(),
+    );
+  }
+>>>>>>> e99f00d (search page error with size books)
 }
