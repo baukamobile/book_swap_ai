@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:math'; // Import for random selection
 import 'package:book_swap_ai/components/user_chat.dart';
 import 'package:book_swap_ai/pages/profile.dart';
+import 'package:book_swap_ai/themes/dark_mode.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:http/http.dart' as http;
@@ -87,16 +88,18 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          title: Text('Books'),
+          centerTitle: true,
+          backgroundColor: darkMode.colorScheme.inversePrimary,
+        ),
 
         // appBar: AppBar(
         //   backgroundColor: Colors.amber,
         //   title: const Text('Books'),
         // ),
         body: books.isEmpty
-            ? Padding(
-              padding: const EdgeInsets.only(bottom: 50),
-              child: const Center(child: CircularProgressIndicator()),
-            )
+            ? const Center(child: CircularProgressIndicator())
             : Column(
               children: [
                 Expanded(

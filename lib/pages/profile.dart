@@ -134,6 +134,9 @@ class _ProfilePageState extends State<ProfilePage> {
                       },
                       icon: Icon(Icons.bookmark),
                     ),
+                    Text("Profile Page",style: TextStyle(
+                      fontSize: 20,fontWeight: FontWeight.w600
+                    ),),
                     IconButton(
                       onPressed: () {
                         Navigator.of(context).push(MaterialPageRoute(

@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:book_swap_ai/themes/dark_mode.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -18,6 +19,8 @@ class _AddBookState extends State<AddBook> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Add Book'),
+        centerTitle: true,
+        backgroundColor: darkMode.colorScheme.primary,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

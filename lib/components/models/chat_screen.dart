@@ -15,7 +15,7 @@ class _ChatScreenState extends State<ChatScreen> {
         title: const Text("Sam Smith"),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(6.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
            // Aligns the input bar at the bottom
