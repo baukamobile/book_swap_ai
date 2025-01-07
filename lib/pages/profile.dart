@@ -1,6 +1,7 @@
+import 'package:book_swap_ai/components/bottomnavbar.dart';
+import 'package:book_swap_ai/main.dart';
 import 'package:book_swap_ai/pages/auth/login_page.dart';
 import 'package:book_swap_ai/pages/auth/register_page.dart';
-import 'package:book_swap_ai/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -116,7 +117,7 @@ class _ProfilePageState extends State<ProfilePage> {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(25.0),
+          padding: const EdgeInsets.all(8.0),
           child: ListView(
             children: [
               Padding(
@@ -133,6 +134,9 @@ class _ProfilePageState extends State<ProfilePage> {
                       },
                       icon: Icon(Icons.bookmark),
                     ),
+                    Text("Profile Page",style: TextStyle(
+                      fontSize: 20,fontWeight: FontWeight.w600
+                    ),),
                     IconButton(
                       onPressed: () {
                         Navigator.of(context).push(MaterialPageRoute(
@@ -196,6 +200,7 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
         ),
       ),
+      // bottomNavigationBar: Bottomnavbar(),
     );
   }
 
