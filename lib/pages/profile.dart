@@ -56,14 +56,42 @@ class ProfilePage extends StatefulWidget {
   @override
   State<ProfilePage> createState() => _ProfilePageState();
 }
-
 class _ProfilePageState extends State<ProfilePage> {
   List<Book> books = [];
   List<User> user = [];
+  
+  String name = '';  // Переменная для имени
+  String email = '';  // Переменная для email
+
   @override
   void initState() {
     super.initState();
     fetchBooks();
+    getUserName();  // Здесь ты вызываешь getUserName для получения данных пользователя
+  }
+
+  // Функция для получения данных пользователя
+  Future<void> getUserName() async {
+    try {
+      final response = await http.get(Uri.parse(
+        'https://testbackendflutter-0471b16deb32.herokuapp.com/api/user/'
+      ));
+      
+      if (response.statusCode == 200) {
+        final Map<String, dynamic> data = json.decode(response.body);
+
+        setState(() {
+          name = data['name'];  // Сохраняем имя
+          email = data['email'];  // Сохраняем email
+        });
+      } else {
+        throw Exception('Error with network');
+      }
+    } catch (e) {
+      print('Error: $e');
+      print('username is $name');
+      print('useremail is $email');
+    }
   }
 
   Future<void> fetchBooks() async {
@@ -71,8 +99,6 @@ class _ProfilePageState extends State<ProfilePage> {
       final response = await http.get(Uri.parse(
           'https://testbackendflutter-0471b16deb32.herokuapp.com/api/books/18/'));
 
-      print('Status Code: ${response.statusCode}');
-      print('Response Body: ${response.body}');
       if (response.statusCode == 200) {
         final Map<String, dynamic> data = json.decode(response.body);
         setState(() {
@@ -86,34 +112,8 @@ class _ProfilePageState extends State<ProfilePage> {
     }
   }
 
-  Future<void> getUserName() async{
-    try {
-      final response = await http.get(Uri.parse(
-        'https://testbackendflutter-0471b16deb32.herokuapp.com/api/user/'
-      ),
-      );
-      print('Status Code: ${response.statusCode}');
-      print('Response Body: ${response.body}');
-      if(response.statusCode == 200){
-        final Map<String,dynamic> data = json.decode(response.body);
-        setState(() {
-          user = [User.fromJson(data)];
-        });
-      }else{
-        throw Exception('Error with network');
-      }
-    }catch(e){
-      print('Error: $e');
-    }
-  }
-
-  String name = "Tom";
-  String email = "tom@gmail.com";
-  var phoneNumber = 77775456787;
-
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -123,10 +123,8 @@ class _ProfilePageState extends State<ProfilePage> {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 20),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment
-                      .spaceBetween, // Adjust horizontal alignment
-                  crossAxisAlignment:
-                      CrossAxisAlignment.center, // Adjust vertical alignment
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     IconButton(
                       onPressed: () {
@@ -134,9 +132,10 @@ class _ProfilePageState extends State<ProfilePage> {
                       },
                       icon: Icon(Icons.bookmark),
                     ),
-                    Text("Profile Page",style: TextStyle(
-                      fontSize: 20,fontWeight: FontWeight.w600
-                    ),),
+                    Text(
+                      "Profile Page",
+                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                    ),
                     IconButton(
                       onPressed: () {
                         Navigator.of(context).push(MaterialPageRoute(
@@ -148,20 +147,15 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
               ),
               Column(
-                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-
                   CircleAvatar(
                     radius: 75,
                     backgroundColor: Colors.grey[200],
                     backgroundImage: AssetImage('assets/img/avtr.jpg'),
                   ),
                   const SizedBox(height: 20),
-                  
-                  _buildProfileDetailRow("Name:", name),
-                  _buildProfileDetailRow("Email:", email),
-                  _buildProfileDetailRow(
-                      "Phone Number:", phoneNumber.toString()),
+                  _buildProfileDetailRow("Name:", name),  // Используем name
+                  _buildProfileDetailRow("Email:", email),  // Используем email
                   const SizedBox(height: 20),
                   Container(
                     child: Text("Active Books"),
@@ -169,7 +163,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   const SizedBox(height: 10),
                   books.isNotEmpty
                       ? SizedBox(
-                          height: 200, // Adjust height as needed
+                          height: 200,
                           child: ListView.builder(
                             itemCount: books.length,
                             itemBuilder: (context, index) {
@@ -200,12 +194,10 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
         ),
       ),
-      // bottomNavigationBar: Bottomnavbar(),
     );
   }
 
   Widget _buildProfileDetailRow(String label, String value) {
-
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -218,6 +210,5 @@ class _ProfilePageState extends State<ProfilePage> {
         IconButton(onPressed: () {}, icon: Icon(Icons.edit)),
       ],
     );
-
   }
 }
