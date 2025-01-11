@@ -101,7 +101,7 @@ class _SearchPageState extends State<SearchPage> {
                   IconButton(
                     icon: const Icon(Icons.search, size: 30),
                     onPressed: () {
-                      // Add your search functionality here
+                      // functionality here
                     },
                   ),
                 ],
