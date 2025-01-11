@@ -48,6 +48,7 @@ class Book {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 List<String> sorts = <String>['low to high', 'high to low', 'New In'];
 List<String> cities = <String>['Astana', 'Almaty', 'Shymkent', 'Aktobe', 'Karagandy'];
 List<Book> books = [];
@@ -56,6 +57,9 @@ String dropdownValue2 = sorts.first;
 String dropdownValue3 = cities.first;
 =======
 List<String> genres = ['Fiction', 'Mystery', 'Fantasy', 'Sci-Fi', 'Romance'];
+=======
+List<String> genres = ['Fiction', 'Mystery', 'Fantasy', 'Sci-Fi', 'Romance', 'Horror', 'Thriller', 'Biography', 'History', 'Self-Help'];
+>>>>>>> 98d77da (list genres updated and padding. i should update size of app)
 List<String> sorts = ['low to high', 'high to low', 'New In'];
 List<String> cities = ['Astana', 'Almaty', 'Shymkent', 'Aktobe', 'Karagandy'];
 >>>>>>> e99f00d (search page error with size books)
@@ -157,6 +161,7 @@ class _SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+<<<<<<< HEAD
       body: Padding(
 <<<<<<< HEAD
         padding: const EdgeInsets.all(8.0),
@@ -326,16 +331,119 @@ class _SearchPageState extends State<SearchPage> {
                                   '${book.author}\nCondition: ${book.condition}'),
                                     
                                   ],
+=======
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      decoration: InputDecoration(
+                        hintText: 'Search...',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15.0),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  IconButton(
+                    icon: const Icon(Icons.search, size: 30),
+                    onPressed: () {
+                      // Add your search functionality here
+                    },
+                  ),
+                ],
+              ),
+              const SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  _buildDropdown(
+                    value: dropdownValue2,
+                    icon: Icons.sort,
+                    items: sorts,
+                    onChanged: (value) => setState(() {
+                      dropdownValue2 = value!;
+                    }),
+                  ),
+                  _buildDropdown(
+                    value: dropdownValue3,
+                    icon: Icons.location_on,
+                    items: cities,
+                    onChanged: (value) => setState(() {
+                      dropdownValue3 = value!;
+                    }),
+                  ),
+                  _buildDropdown(
+                    value: dropdownValue,
+                    icon: Icons.arrow_downward,
+                    items: genres,
+                    onChanged: (value) => setState(() {
+                      dropdownValue = value!;
+                    }),
+                  ),
+                  InkWell(
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => GeminiChat()),
+                    ),
+                    child: Image.asset('assets/img/ai.jpg', width: 40),
+                  ),
+                ],
+              ),
+              // const SizedBox(height: 20),
+              books.isEmpty
+                  ? const Center(child: Text("No books available"))
+                  : Expanded(
+                      child: GridView.builder(
+          padding: const EdgeInsets.all(10),
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2, // Number of columns
+            crossAxisSpacing: 10, // Horizontal spacing between items
+            mainAxisSpacing: 10, // Vertical spacing between items
+          ),
+          itemCount: books.length,
+          itemBuilder: (BuildContext context, int index) {
+                          final book = books[index];
+                          return Container(
+                            width: 100,
+                            height: 250,
+        
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Card(
+                                // margin: EdgeInsets.all(10),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                    children: [
+                                      Image.network(book.imageUrl,width: 105,),
+                                      Text(book.title),
+                                      Text(
+                                    '${book.author}\nCondition: ${book.condition}'),
+                                      
+                                    ],
+                                  ),
+>>>>>>> 98d77da (list genres updated and padding. i should update size of app)
                                 ),
                               ),
                             ),
-                          ),
-                        );
-                      },
+                          );
+                        },
+                      ),
                     ),
+<<<<<<< HEAD
                   ),
 >>>>>>> e99f00d (search page error with size books)
           ],
+=======
+            ],
+          ),
+>>>>>>> 98d77da (list genres updated and padding. i should update size of app)
         ),
       ),
     );
