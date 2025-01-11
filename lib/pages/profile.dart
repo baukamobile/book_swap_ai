@@ -82,6 +82,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 20),
+<<<<<<< HEAD
                 child:Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween, // Adjust horizontal alignment
                   crossAxisAlignment: CrossAxisAlignment.center, // Adjust vertical alignment
@@ -100,6 +101,32 @@ class _ProfilePageState extends State<ProfilePage> {
     ),
   ],
 ),
+=======
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment
+                      .spaceBetween, // Adjust horizontal alignment
+                  crossAxisAlignment:
+                      CrossAxisAlignment.center, // Adjust vertical alignment
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        // Navigator.of(context).push(MaterialPageRoute(builder: (context) => LoginPage()));
+                      },
+                      icon: Icon(Icons.bookmark),
+                    ),
+                    Text("Profile Page",style: TextStyle(
+                      fontSize: 20,fontWeight: FontWeight.w600
+                    ),),
+                    IconButton(
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => LoginPage()));
+                      },
+                      icon: Icon(Icons.exit_to_app),
+                    ),
+                  ],
+                ),
+>>>>>>> ff97859 (some changing not suficiant, changing appbars color profile page appbar)
               ),
                 
               //    Align(

@@ -1,5 +1,12 @@
 import 'dart:convert';
+<<<<<<< HEAD
 import 'dart:math';  // Import for random selection
+=======
+import 'dart:math'; // Import for random selection
+import 'package:book_swap_ai/components/user_chat.dart';
+import 'package:book_swap_ai/pages/profile.dart';
+import 'package:book_swap_ai/themes/dark_mode.dart';
+>>>>>>> ff97859 (some changing not suficiant, changing appbars color profile page appbar)
 import 'package:flutter/material.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:http/http.dart' as http;
@@ -79,6 +86,7 @@ class _HomePageState extends State<HomePage> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
+<<<<<<< HEAD
           backgroundColor: Colors.amber,
           title: const Text('Books'),
         ),
@@ -96,6 +104,50 @@ class _HomePageState extends State<HomePage> {
                           return Card(
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(15),
+=======
+          title: Text('Books'),
+          centerTitle: true,
+          backgroundColor: darkMode.colorScheme.inversePrimary,
+        ),
+
+        // appBar: AppBar(
+        //   backgroundColor: Colors.amber,
+        //   title: const Text('Books'),
+        // ),
+        body: books.isEmpty
+            ? const Center(child: CircularProgressIndicator())
+            : Column(
+              children: [
+                Expanded(
+                  child: CardSwiper(
+                    controller: _controller,
+                    cardsCount: books.length,
+                    cardBuilder: (context, index, _, __) {
+                      final book = books[index];
+                      return Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        child: Column(
+                          children: [
+                            Expanded(
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(15),
+                                child: Stack(children: [
+                                  Image.network(
+                                    book.imageUrl,
+                                    fit: BoxFit.cover,
+                                    errorBuilder:
+                                        (context, error, stackTrace) =>
+                                            const Icon(Icons.error),
+                                  ),
+                                  // SizedBox(height: 100,),
+                                  // IconButton(onPressed: (){
+            
+                                  // }, icon: Icon(Icons.chat_bubble_outlined,size: 40,color: Colors.amber,)),
+                                ]),
+                              ),
+>>>>>>> ff97859 (some changing not suficiant, changing appbars color profile page appbar)
                             ),
                             child: Column(
                               children: [
