@@ -46,9 +46,9 @@ class _LoginPageState extends State<LoginPage> {
         content: Text('Login successful'),
         backgroundColor: Colors.green,
       ));
-      Navigator.pushReplacement(
+      Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => ProfilePage()), // Navigate to the ProfilePage or another page
+        MaterialPageRoute(builder: (context) => HomePage()), // Navigate to the ProfilePage or another page
       );
     } else {
       // Handle login failure

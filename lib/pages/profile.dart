@@ -74,7 +74,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Future<void> getUserName() async {
     try {
       final response = await http.get(Uri.parse(
-        'https://testbackendflutter-0471b16deb32.herokuapp.com/api/user/'
+        'https://testbackendflutter-0471b16deb32.herokuapp.com/api/users/24/'
       ));
       
       if (response.statusCode == 200) {
@@ -199,7 +199,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   Widget _buildProfileDetailRow(String label, String value) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Row(
           children: [
