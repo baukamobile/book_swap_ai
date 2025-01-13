@@ -1,9 +1,12 @@
 import 'package:book_swap_ai/main.dart';
 import 'package:book_swap_ai/pages/auth/register_page.dart';
+
 import 'package:book_swap_ai/pages/profile.dart';
+// import 'package:book_swap_ai/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -48,7 +51,7 @@ class _LoginPageState extends State<LoginPage> {
       ));
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => HomePage()), // Navigate to the ProfilePage or another page
+        MaterialPageRoute(builder: (context) => HomePage()), 
       );
     } else {
       // Handle login failure
