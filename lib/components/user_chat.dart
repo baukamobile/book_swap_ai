@@ -1,24 +1,33 @@
+import 'package:book_swap_ai/pages/home_page.dart';
 import 'package:flutter/material.dart';
 
-class ChatScreen extends StatefulWidget {
-  const ChatScreen({super.key});
+
+
+class UserChat extends StatefulWidget {
+  UserChat({super.key, required this.ownerName});
+  final String ownerName;
 
   @override
-  State<ChatScreen> createState() => _ChatScreenState();
+  State<UserChat> createState() => _UserChatState();
 }
 
-class _ChatScreenState extends State<ChatScreen> {
+class _UserChatState extends State<UserChat> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Sam Smith"),
+        title: Text(widget.ownerName), // Use widget.ownerName here
+        leading: IconButton(
+          onPressed: () {
+  Navigator.pop(context);
+          },
+          icon: Icon(Icons.arrow_back),
+        ),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(6.0), //padding pull request testing
+        padding: const EdgeInsets.all(16.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-           // Aligns the input bar at the bottom
+          mainAxisAlignment: MainAxisAlignment.end, // Aligns the input bar at the bottom
           children: [
             Row(
               children: [
