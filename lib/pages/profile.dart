@@ -61,17 +61,17 @@ class _ProfilePageState extends State<ProfilePage> {
   List<Book> books = [];
   List<User> user = [];
   
-  String name = '';  // Переменная для имени
-  String email = '';  // Переменная для email
+  String name = '';  
+  String email = ''; 
 
   @override
   void initState() {
     super.initState();
     fetchBooks();
-    getUserName();  // Здесь ты вызываешь getUserName для получения данных пользователя
+    getUserName();  
   }
 
-  // Функция для получения данных пользователя
+
   Future<void> getUserName() async {
     try {
       final response = await http.get(Uri.parse(
