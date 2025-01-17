@@ -10,7 +10,7 @@ Color cardColor = const Color(0xFF444654);
 
 // // Declare a String variable for the API key
 // String GEMINI_API_KEY = dotenv.env['GEMINI_API_KEY']!;
-
+String GEMINI_API_KEY="apikey";
 // // Initialize Gemini with the API key
 // Gemini.init(apiKey: GEMINI_API_KEY);
 // Declare a String variable for the API key
@@ -21,7 +21,7 @@ Color cardColor = const Color(0xFF444654);
 //   Gemini.init(apiKey: geminiApiKey);
 // }
 
-String GEMINI_API_KEY= "AIzaSyDFxhjup4OR2phl-G5k96zda7E-Z5j-iHo";
+// String GEMINI_API_KEY= "AIzaSyDFxhjup4OR2phl-G5k96zda7E-Z5j-iHo";
 //openaikey
 //openaikey
 final ChatMessages = [
@@ -43,3 +43,4 @@ final ChatMessages = [
   "chatIndex":3
 }
 ];
+
