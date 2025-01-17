@@ -10,7 +10,7 @@ Color cardColor = const Color(0xFF444654);
 
 // // Declare a String variable for the API key
 // String GEMINI_API_KEY = dotenv.env['GEMINI_API_KEY']!;
-String GEMINI_API_KEY="apikey";
+String GEMINI_API_KEY="apikeykey";
 // // Initialize Gemini with the API key
 // Gemini.init(apiKey: GEMINI_API_KEY);
 // Declare a String variable for the API key
