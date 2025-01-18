@@ -121,9 +121,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List<Book> books = [];
-  // List<Book> bookAPI = [
 
-  // ];
+
   final CardSwiperController _controller = CardSwiperController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -164,11 +163,6 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-
-        // appBar: AppBar(
-        //   backgroundColor: Colors.amber,
-        //   title: const Text('Books'),
-        // ),
         body: books.isEmpty
             ? Padding(
               padding: const EdgeInsets.only(bottom: 50),
@@ -199,10 +193,6 @@ class _HomePageState extends State<HomePage> {
                                         (context, error, stackTrace) =>
                                             const Icon(Icons.error),
                                   ),
-                                  // SizedBox(height: 100,),
-                                  // IconButton(onPressed: (){
-            
-                                  // }, icon: Icon(Icons.chat_bubble_outlined,size: 40,color: Colors.amber,)),
                                 ]),
                               ),
                             ),
