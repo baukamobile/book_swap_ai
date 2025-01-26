@@ -30,7 +30,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
   try {
     final response = await http.post(
-      Uri.parse('https://testbackendflutter-0471b16deb32.herokuapp.com/api/register/'),
+      Uri.parse('https://peaceful-refuge-96948-e42c6be7d8b8.herokuapp.com/api/register/'),
       body: json.encode({
         'email': email,
         'name': name,

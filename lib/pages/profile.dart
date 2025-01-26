@@ -75,7 +75,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Future<void> getUserName() async {
     try {
       final response = await http.get(Uri.parse(
-        'https://testbackendflutter-0471b16deb32.herokuapp.com/api/users/24/'
+        'https://peaceful-refuge-96948-e42c6be7d8b8.herokuapp.com/api/users/24/'
       ));
       
       if (response.statusCode == 200) {
@@ -98,7 +98,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Future<void> fetchBooks() async {
     try {
       final response = await http.get(Uri.parse(
-          'https://testbackendflutter-0471b16deb32.herokuapp.com/api/books/18/'));
+          'https://peaceful-refuge-96948-e42c6be7d8b8.herokuapp.com/api/books/13/'));
 
       if (response.statusCode == 200) {
         final Map<String, dynamic> data = json.decode(response.body);
