@@ -21,12 +21,11 @@ import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:http/http.dart' as http;
 void main() 
 async {
-  // await dotenv.load(); // Load .env file
+
   Gemini.init(
   apiKey: GEMINI_API_KEY,
   );
-  // initializeGemini(); 
-  // Gemini.init(apiKey: dotenv.env['GEMINI_API_KEY']!);
+
   runApp(const MyApp());
 }
 
