@@ -2,8 +2,6 @@ import 'package:book_swap_ai/components/chat_with_them.dart';
 import 'package:book_swap_ai/components/models/chat_screen.dart';
 import 'package:book_swap_ai/pages/chatting.dart';
 import 'package:flutter/material.dart';
-// List<String> genres = <String>['fantasy', 'Fiction', 'Detective', 'Drama'];
-// List<String> sorts = <String>['Price low to high','Price high to low', 'New In'];
 class ChatPage extends StatefulWidget {
   const ChatPage({super.key});
 
@@ -19,10 +17,6 @@ class _ChatPageState extends State<ChatPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        // appBar: AppBar(
-        //   title: const Text('Chat'),
-        //   backgroundColor: Colors.deepPurple, // Example color
-        // ),
         body: 
         ListView(
           padding: const EdgeInsets.symmetric(vertical: 9,horizontal:14 ), // Padding for the whole ListView
@@ -58,9 +52,6 @@ class _ChatPageState extends State<ChatPage> {
             const SizedBox(height: 20), // Space between the rows
             Padding(
               padding: const EdgeInsets.all(8.0),
-              // child: ChatWithThem(
-              //   name: "Sam",lastname: "Smith", message: "Это полезно, например, для создания случайного порядка элементов в играх или приложениях, где нужно рандомизировать данные.",
-              //   ),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),

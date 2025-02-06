@@ -51,37 +51,6 @@ class MyApp extends StatelessWidget {
 }
 
 
-
-// class MyHomePage extends StatefulWidget {
-//   const MyHomePage({super.key});
-
-//   @override
-//   _MyHomePageState createState() => _MyHomePageState();
-// }
-
-// class _MyHomePageState extends State<MyHomePage> {
-//   int _selectedIndex = 0;
-
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-
-//       // appBar: AppBar(title: const Text('BookSwapAI')),
-//       // body: Padding(
-//       //   padding: const EdgeInsets.all(15.0),
-//       //   // child: _screens[_selectedIndex], // Display the current selected screen
-//       // ),
-//            //   ],
-//       // ),
-//     bottomNavigationBar: Bottomnavbar(),
-//     );
-//   }
-// }
-
-
-
-
 class Book {
   final String title;
   final String author;
