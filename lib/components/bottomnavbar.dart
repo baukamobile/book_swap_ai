@@ -15,7 +15,6 @@ class Bottomnavbar extends StatefulWidget {
 class _BottomnavbarState extends State<Bottomnavbar> {
   int _selectedIndex = 0;
 
-  // List of screens for BottomNavigationBar
   final List<Widget> _screens = [
     const HomePage(),
     const SearchPage(),
@@ -24,7 +23,6 @@ class _BottomnavbarState extends State<Bottomnavbar> {
     const ProfilePage(),
   ];
 
-  // Update the selected index when a new BottomNavigationBar item is tapped
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -34,7 +32,6 @@ class _BottomnavbarState extends State<Bottomnavbar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // Display the selected screen in the body
       body: _screens[_selectedIndex],
       
       bottomNavigationBar: BottomNavigationBar(

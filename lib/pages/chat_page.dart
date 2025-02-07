@@ -11,8 +11,6 @@ class ChatPage extends StatefulWidget {
 
 class _ChatPageState extends State<ChatPage> {
   
-  // String dropdownValue = genres.first;
-  // String dropdownValue2 = sorts.first;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
