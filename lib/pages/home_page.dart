@@ -170,7 +170,7 @@ class _HomePageState extends State<HomePage> {
                                               width: 40,
                                             ),
                                           ),
-                                          Text("${book.owner}")
+                                          Text("${book.owner}"),
                                         ],
                                       ),
                                     ],

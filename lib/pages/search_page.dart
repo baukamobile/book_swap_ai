@@ -11,7 +11,7 @@ class Book {
   final String description;
   final String condition;
   final String imageUrl;
-  final String price;
+  final price;
 
   Book({
     required this.title,
@@ -215,8 +215,10 @@ class _SearchPageState extends State<SearchPage> {
                           overflow: TextOverflow.ellipsis,
                         ),
                         const SizedBox(height: 5),
+                        // Text('Price: ${book.price}'),
                         Text(
-                          'Condition: ${book.condition}',
+                          // 'Condition: ${book.condition}',
+                          'Price: ${book.price}',
                           style: const TextStyle(color: Colors.grey),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
