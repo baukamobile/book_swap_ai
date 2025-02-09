@@ -15,6 +15,7 @@ class Book {
   final String condition;
   final String imageUrl;
   final String owner;
+  final price;
 
   Book({
     required this.title,
@@ -23,6 +24,7 @@ class Book {
     required this.condition,
     required this.imageUrl,
     required this.owner,
+    required this.price,
   });
 
   factory Book.fromJson(Map<String, dynamic> json) {
@@ -33,6 +35,7 @@ class Book {
       condition: json['condition'],
       imageUrl: json['image'],
       owner: json['owner']['name'],
+      price: json['price'],
     );
   }
 }
@@ -174,6 +177,7 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                   Text('Author: ${book.author}'),
                                   Text('Condition: ${book.condition}'),
+                                  Text('Price: ${book.price}'),
                                   Text(
                                     book.description,
                                     maxLines: 2,

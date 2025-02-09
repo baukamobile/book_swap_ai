@@ -11,6 +11,7 @@ class Book {
   final String description;
   final String condition;
   final String imageUrl;
+  final String price;
 
   Book({
     required this.title,
@@ -18,6 +19,7 @@ class Book {
     required this.description,
     required this.condition,
     required this.imageUrl,
+    required this.price,
   });
 
   factory Book.fromJson(Map<String, dynamic> json) {
@@ -27,6 +29,7 @@ class Book {
       description: json['description'],
       condition: json['condition'],
       imageUrl: json['image'],
+      price: json['price'],
     );
   }
 }
@@ -48,6 +51,17 @@ class _SearchPageState extends State<SearchPage> {
   String dropdownValue2 = sorts.first;
   String dropdownValue3 = cities.first;
   List<Book> books = [];
+  void sortBooks() {
+  setState(() {
+    if (dropdownValue2 == 'low to high') {
+      books.sort((a, b) => b.price.compareTo(b.price)); 
+    } else if (dropdownValue2 == 'high to low') {
+      books.sort((a, b) => b.price.compareTo(a.price)); 
+    } else if (dropdownValue2 == 'New In') {
+      books.shuffle(); 
+    }
+  });
+}
 
   Future<void> fetchBooks() async {
     try {
@@ -111,12 +125,16 @@ class _SearchPageState extends State<SearchPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   _buildDropdown(
-                    value: dropdownValue2,
-                    icon: Icons.sort,
-                    items: sorts,
-                    onChanged: (value) => setState(() {
-                      dropdownValue2 = value!;
-                    }),
+                  value: dropdownValue2,
+                  icon: Icons.sort,
+                  items: sorts,
+                  onChanged: (value) => setState(() {
+                    dropdownValue2 = value!;
+                    setState(() {
+                      // books = allBooks.take(randomCount).toList();
+                      sortBooks();  // <-- После загрузки сортируем
+                      });}),
+
                   ),
                   _buildDropdown(
                     value: dropdownValue3,
@@ -135,7 +153,7 @@ class _SearchPageState extends State<SearchPage> {
                     }),
                   ),
                   InkWell(
-                    onTap: () => Navigator.push(
+                    onTap: () => Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(builder: (context) => GeminiChat()),
                     ),
