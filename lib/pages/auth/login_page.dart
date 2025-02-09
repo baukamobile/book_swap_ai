@@ -51,10 +51,12 @@ class _LoginPageState extends State<LoginPage> {
         content: Text('Login successful'),
         backgroundColor: Colors.green,
       ));
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => HomePage()), 
-      );
+      Navigator.pushAndRemoveUntil(
+  context,
+  MaterialPageRoute(builder: (context) => HomePage()),
+  (Route<dynamic> route) => false,
+);
+
     } else {
       // Handle login failure
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
