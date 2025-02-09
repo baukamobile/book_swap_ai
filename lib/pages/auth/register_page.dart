@@ -12,6 +12,7 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
+  bool hidden = true;
   final _emailController = TextEditingController();
   final _nameController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -101,8 +102,13 @@ class _RegisterPageState extends State<RegisterPage> {
                       controller: _emailController,
                       decoration: InputDecoration(
                         hintText: "Email",
-                        enabledBorder: OutlineInputBorder(),
-                        focusedBorder: OutlineInputBorder(),
+                        border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(20.0),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: const BorderSide(color: Colors.blue, width: 2.0),
+                borderRadius: BorderRadius.circular(20.0),
+              ),
                       ),
                     ),
                   ),
@@ -113,8 +119,13 @@ class _RegisterPageState extends State<RegisterPage> {
                       controller: _nameController,
                       decoration: InputDecoration(
                         hintText: "Name",
-                        enabledBorder: OutlineInputBorder(),
-                        focusedBorder: OutlineInputBorder(),
+                        border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(20.0),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: const BorderSide(color: Colors.blue, width: 2.0),
+                borderRadius: BorderRadius.circular(20.0),
+              ),
                       ),
                     ),
                   ),
@@ -123,11 +134,26 @@ class _RegisterPageState extends State<RegisterPage> {
                     padding: const EdgeInsets.all(8.0),
                     child: TextField(
                       controller: _passwordController,
-                      obscureText: true,
+                      obscureText: hidden,
                       decoration: InputDecoration(
                         hintText: "Password",
-                        enabledBorder: OutlineInputBorder(),
-                        focusedBorder: OutlineInputBorder(),
+                         suffixIcon: IconButton(
+                onPressed: () {
+                  setState(() {
+                    hidden = !hidden; // Меняем состояние
+                  });
+                },
+                icon: Icon(hidden
+                    ? Icons.visibility_off
+                    : Icons.visibility), // Меняем иконку
+              ),
+                        border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(20.0),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: const BorderSide(color: Colors.blue, width: 2.0),
+                borderRadius: BorderRadius.circular(20.0),
+              ),
                       ),
                     ),
                   ),
@@ -139,7 +165,10 @@ class _RegisterPageState extends State<RegisterPage> {
                         Container(
                           height: 50,
                           width: 200,
-                          color: Colors.green,
+                          decoration: BoxDecoration(
+                            color: Colors.green,
+                            borderRadius: BorderRadius.circular(20),
+                          ),
                           child: TextButton(
                             onPressed: register,
                             child: Text(

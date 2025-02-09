@@ -10,12 +10,14 @@ import 'dart:convert';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
+  
 
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
+  bool hidden = true;
   // Controllers for the text fields
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -105,23 +107,47 @@ class _LoginPageState extends State<LoginPage> {
                     padding: const EdgeInsets.all(8.0),
                     child: TextField(
                       controller: emailController,
-                      decoration: InputDecoration(
-                        hintText: "Email",
-                        enabledBorder: OutlineInputBorder(),
-                        focusedBorder: OutlineInputBorder(),
-                      ),
+                        decoration: InputDecoration(
+                          hintText: "Email",
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(20.0),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: const BorderSide(color: Colors.blue, width: 2.0),
+                borderRadius: BorderRadius.circular(20.0),
+              ),
+            ),
                     ),
                   ),
                   const SizedBox(height: 20),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: TextField(
+                      
                       controller: passwordController,
-                      obscureText: true, // To hide the password
+                      obscureText: hidden, // To hide the password
                       decoration: InputDecoration(
+
                         hintText: "Password",
-                        enabledBorder: OutlineInputBorder(),
-                        focusedBorder: OutlineInputBorder(),
+
+                        border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(20.0),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: const BorderSide(color: Colors.blue, width: 2.0),
+                borderRadius: BorderRadius.circular(20.0),
+              ),
+
+              suffixIcon: IconButton(
+                onPressed: () {
+                  setState(() {
+                    hidden = !hidden; // Меняем состояние
+                  });
+                },
+                icon: Icon(hidden
+                    ? Icons.visibility_off
+                    : Icons.visibility), // Меняем иконку
+              ),
                       ),
                     ),
                   ),
@@ -132,7 +158,11 @@ class _LoginPageState extends State<LoginPage> {
                         Container(
                           height: 50,
                           width: 200,
-                          color: Colors.green,
+                          
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: Colors.green,
+                          ),
                           child: TextButton(
                             onPressed: loginUser,
                             child: Text(
