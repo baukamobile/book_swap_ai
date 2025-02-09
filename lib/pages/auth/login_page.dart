@@ -1,8 +1,6 @@
 import 'package:book_swap_ai/main.dart';
 import 'package:book_swap_ai/pages/auth/register_page.dart';
-
 import 'package:book_swap_ai/pages/profile.dart';
-// import 'package:book_swap_ai/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -46,7 +44,6 @@ class _LoginPageState extends State<LoginPage> {
     );
     if (response.statusCode == 200) {
       final responseData = json.decode(response.body);
-      // You can save the token or any user data you get from the response
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text('Login successful'),
         backgroundColor: Colors.green,
@@ -58,7 +55,6 @@ class _LoginPageState extends State<LoginPage> {
 );
 
     } else {
-      // Handle login failure
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text('Login failed'),
         backgroundColor: Colors.red,
