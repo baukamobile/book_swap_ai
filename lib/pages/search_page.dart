@@ -11,7 +11,7 @@ class Book {
   final String description;
   final String condition;
   final String imageUrl;
-  final price;
+  final double price;
 
   Book({
     required this.title,
@@ -29,7 +29,9 @@ class Book {
       description: json['description'],
       condition: json['condition'],
       imageUrl: json['image'],
-      price: json['price'],
+      // price: json['price'],
+      price: double.tryParse(json['price'].toString()) ?? 0.0,
+
     );
   }
 }
@@ -54,7 +56,7 @@ class _SearchPageState extends State<SearchPage> {
   void sortBooks() {
   setState(() {
     if (dropdownValue2 == 'low to high') {
-      books.sort((a, b) => b.price.compareTo(b.price)); 
+      books.sort((a, b) => a.price.compareTo(b.price)); 
     } else if (dropdownValue2 == 'high to low') {
       books.sort((a, b) => b.price.compareTo(a.price)); 
     } else if (dropdownValue2 == 'New In') {
@@ -62,6 +64,7 @@ class _SearchPageState extends State<SearchPage> {
     }
   });
 }
+
 
   Future<void> fetchBooks() async {
     try {
