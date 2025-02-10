@@ -12,6 +12,8 @@ class Book {
   final String condition;
   final String imageUrl;
   final double price;
+  final DateTime created_at;
+  final String region;
 
   Book({
     required this.title,
@@ -20,6 +22,8 @@ class Book {
     required this.condition,
     required this.imageUrl,
     required this.price,
+    required this.created_at,
+    required this.region,
   });
 
   factory Book.fromJson(Map<String, dynamic> json) {
@@ -31,6 +35,8 @@ class Book {
       imageUrl: json['image'],
       // price: json['price'],
       price: double.tryParse(json['price'].toString()) ?? 0.0,
+      created_at: DateTime.tryParse(json['created_at'].toString()) ?? DateTime.now(),
+      region: json['region'] ?? '',
 
     );
   }
@@ -53,15 +59,20 @@ class _SearchPageState extends State<SearchPage> {
   String dropdownValue2 = sorts.first;
   String dropdownValue3 = cities.first;
   List<Book> books = [];
-  void sortBooks() {
+  void sortBooksByPrice() {
   setState(() {
     if (dropdownValue2 == 'low to high') {
       books.sort((a, b) => a.price.compareTo(b.price)); 
     } else if (dropdownValue2 == 'high to low') {
       books.sort((a, b) => b.price.compareTo(a.price)); 
     } else if (dropdownValue2 == 'New In') {
-      books.shuffle(); 
+      books.sort((a, b) => b.created_at.compareTo(a.created_at));
     }
+  });
+}
+void sortBooksByRegion() {
+  setState(() {
+    books = books.where((book) => book.region == dropdownValue3 || book.region.isEmpty).toList();
   });
 }
 
@@ -75,7 +86,7 @@ class _SearchPageState extends State<SearchPage> {
         List<Book> allBooks = data.map((json) => Book.fromJson(json)).toList();
 
         // Randomly select between 3 to 7 books without repetition
-        int randomCount = Random().nextInt(5) + 11;
+        int randomCount = allBooks.length;
         allBooks.shuffle();
         setState(() {
           books = allBooks.take(randomCount).toList();
@@ -135,7 +146,7 @@ class _SearchPageState extends State<SearchPage> {
                     dropdownValue2 = value!;
                     setState(() {
                       // books = allBooks.take(randomCount).toList();
-                      sortBooks();  // <-- После загрузки сортируем
+                      sortBooksByPrice();  // <-- После загрузки сортируем
                       });}),
 
                   ),
@@ -145,6 +156,7 @@ class _SearchPageState extends State<SearchPage> {
                     items: cities,
                     onChanged: (value) => setState(() {
                       dropdownValue3 = value!;
+                      sortBooksByRegion();
                     }),
                   ),
                   _buildDropdown(
