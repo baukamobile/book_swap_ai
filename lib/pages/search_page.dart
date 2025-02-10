@@ -14,6 +14,7 @@ class Book {
   final double price;
   final DateTime created_at;
   final String region;
+  final String genre;
 
   Book({
     required this.title,
@@ -24,6 +25,7 @@ class Book {
     required this.price,
     required this.created_at,
     required this.region,
+    required this.genre,
   });
 
   factory Book.fromJson(Map<String, dynamic> json) {
@@ -37,6 +39,7 @@ class Book {
       price: double.tryParse(json['price'].toString()) ?? 0.0,
       created_at: DateTime.tryParse(json['created_at'].toString()) ?? DateTime.now(),
       region: json['region'] ?? '',
+      genre: json['genre'] ?? '',
 
     );
   }
@@ -75,7 +78,11 @@ void sortBooksByRegion() {
     books = books.where((book) => book.region == dropdownValue3 || book.region.isEmpty).toList();
   });
 }
-
+void sortBooksByGenre(){
+  setState(() {
+    books = books.where((book) => book.genre == dropdownValue || book.genre.isEmpty).toList();
+  });
+}
 
   Future<void> fetchBooks() async {
     try {
@@ -165,6 +172,7 @@ void sortBooksByRegion() {
                     items: genres,
                     onChanged: (value) => setState(() {
                       dropdownValue = value!;
+                      sortBooksByGenre();
                     }),
                   ),
                   InkWell(
