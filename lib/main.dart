@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context){
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: lightMode,
@@ -103,7 +103,7 @@ class _HomePageState extends State<HomePage> {
   Future<void> fetchBooks() async {
     try {
       final response = await http.get(Uri.parse(
-          'https://peaceful-refuge-96948-e42c6be7d8b8.herokuapp.com/api/books/'));
+          'https://peaceful-refuge-96948-e42c6be7d8b8.herokuapp.com/app/api/books/'));
 
       if (response.statusCode == 200) {
         final List<dynamic> data = json.decode(response.body);

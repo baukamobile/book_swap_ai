@@ -38,7 +38,7 @@ class _LoginPageState extends State<LoginPage> {
       'password': password,
     };
     final response = await http.post(
-      Uri.parse('https://peaceful-refuge-96948-e42c6be7d8b8.herokuapp.com/api/login/'),  // Replace with your Django API login URL
+      Uri.parse('https://peaceful-refuge-96948-e42c6be7d8b8.herokuapp.com/app/api/login/'),  // Replace with your Django API login URL
       headers: {'Content-Type': 'application/json'},
       body: json.encode(loginData),
     );

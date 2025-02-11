@@ -57,7 +57,6 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
-
   String dropdownValue = genres.first;
   String dropdownValue2 = sorts.first;
   String dropdownValue3 = cities.first;
@@ -87,11 +86,10 @@ void sortBooksByGenre(){
   Future<void> fetchBooks() async {
     try {
       final response = await http.get(Uri.parse(
-          'https://peaceful-refuge-96948-e42c6be7d8b8.herokuapp.com/api/books/'));
+          'https://peaceful-refuge-96948-e42c6be7d8b8.herokuapp.com/app/api/books/'));
       if (response.statusCode == 200) {
         final List<dynamic> data = json.decode(response.body);
         List<Book> allBooks = data.map((json) => Book.fromJson(json)).toList();
-
         // Randomly select between 3 to 7 books without repetition
         int randomCount = allBooks.length;
         allBooks.shuffle();
@@ -105,13 +103,11 @@ void sortBooksByGenre(){
       print('Error: $e');
     }
   }
-
   @override
   void initState() {
     super.initState();
     fetchBooks();
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -176,7 +172,7 @@ void sortBooksByGenre(){
                     }),
                   ),
                   InkWell(
-                    onTap: () => Navigator.pushReplacement(
+                    onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => GeminiChat()),
                     ),
@@ -189,11 +185,11 @@ void sortBooksByGenre(){
                   ? const Center(child: Text("No books available"))
                   : Expanded(
                       child: GridView.builder(
-          padding: const EdgeInsets.all(5),
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2, // Number of columns
-            crossAxisSpacing: 10, // Horizontal spacing between items
-            mainAxisSpacing: 10, // Vertical spacing between items
+                        padding: const EdgeInsets.all(5),
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2, 
+                      crossAxisSpacing: 10, 
+                      mainAxisSpacing: 10, 
           ),
           itemCount: books.length,
           itemBuilder: (BuildContext context, int index) {

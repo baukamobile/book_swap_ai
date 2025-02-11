@@ -98,7 +98,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Future<void> fetchBooks() async {
     try {
       final response = await http.get(Uri.parse(
-          'https://peaceful-refuge-96948-e42c6be7d8b8.herokuapp.com/api/books/13/'));
+          'https://peaceful-refuge-96948-e42c6be7d8b8.herokuapp.com/app/api/books/13/'));
 
       if (response.statusCode == 200) {
         final Map<String, dynamic> data = json.decode(response.body);
