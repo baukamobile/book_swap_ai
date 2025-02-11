@@ -1,46 +1,45 @@
 import 'dart:convert';
 import 'dart:math'; // Import for random selection
 import 'package:book_swap_ai/components/user_chat.dart';
-import 'package:book_swap_ai/pages/profile.dart';
+import 'package:book_swap_ai/pages/profile.dart' as ProfilePage;
 import 'package:book_swap_ai/themes/dark_mode.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:http/http.dart' as http;
 
+import 'package:book_swap_ai/components/models/book_model.dart';
 
-class Book {
-  final String title;
-  final String author;
-  final String description;
-  final String condition;
-  final String imageUrl;
-  final String owner;
-  final price;
+//   class Book {
+//   final String title;
+//   final String author;
+//   final String description;
+//   final String condition;
+//   final String imageUrl;
+//   final String owner;
+//   final double price;
 
-  Book({
-    required this.title,
-    required this.author,
-    required this.description,
-    required this.condition,
-    required this.imageUrl,
-    required this.owner,
-    required this.price,
-  });
+//   Book({
+//     required this.title,
+//     required this.author,
+//     required this.description,
+//     required this.condition,
+//     required this.imageUrl,
+//     required this.owner,
+//     required this.price,
+//   });
 
-  factory Book.fromJson(Map<String, dynamic> json) {
-    return Book(
-      title: json['title'],
-      author: json['author'],
-      description: json['description'],
-      condition: json['condition'],
-      imageUrl: json['image'],
-      owner: json['owner']['name'],
-      price: json['price'],
-    );
-  }
-}
-
-
+//   factory Book.fromJson(Map<String, dynamic> json) {
+//     return Book(
+//       title: json['title'],
+//       author: json['author'],
+//       description: json['description'],
+//       condition: json['condition'],
+//       imageUrl: json['image'],
+//       owner: json['owner']['name'],
+//       price: double.tryParse(json['price'].toString()) ?? 0.0,
+//     );
+//   }
+// }
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -50,10 +49,10 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<Book> books = [];
-  // List<Book> bookAPI = [
 
-  // ];
+  // List<Book> books = [];
+  List<Book> books = [];
+  
   final CardSwiperController _controller = CardSwiperController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();

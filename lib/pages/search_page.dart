@@ -4,46 +4,48 @@ import 'package:book_swap_ai/themes/dark_mode.dart';
 import 'package:flutter/material.dart';
 import 'package:book_swap_ai/pages/chatting.dart';
 import 'package:http/http.dart' as http;
+import 'package:book_swap_ai/components/models/book_model.dart';
 
-class Book {
-  final String title;
-  final String author;
-  final String description;
-  final String condition;
-  final String imageUrl;
-  final double price;
-  final DateTime created_at;
-  final String region;
-  final String genre;
+// class Book {
+//   final String title;
+//   final String author;
+//   final String description;
+//   final String condition;
+//   final String imageUrl;
+//   final double price;
+//   final DateTime created_at;
+//   final String region;
+//   final String genre;
 
-  Book({
-    required this.title,
-    required this.author,
-    required this.description,
-    required this.condition,
-    required this.imageUrl,
-    required this.price,
-    required this.created_at,
-    required this.region,
-    required this.genre,
-  });
+//   Book({
+//     required this.title,
+//     required this.author,
+//     required this.description,
+//     required this.condition,
+//     required this.imageUrl,
+//     required this.price,
+//     required this.created_at,
+//     required this.region,
+//     required this.genre,
+//   });
 
-  factory Book.fromJson(Map<String, dynamic> json) {
-    return Book(
-      title: json['title'],
-      author: json['author'],
-      description: json['description'],
-      condition: json['condition'],
-      imageUrl: json['image'],
-      // price: json['price'],
-      price: double.tryParse(json['price'].toString()) ?? 0.0,
-      created_at: DateTime.tryParse(json['created_at'].toString()) ?? DateTime.now(),
-      region: json['region'] ?? '',
-      genre: json['genre'] ?? '',
+//   factory Book.fromJson(Map<String, dynamic> json) {
+//     return Book(
+//       title: json['title'],
+//       author: json['author'],
+//       description: json['description'],
+//       condition: json['condition'],
+//       imageUrl: json['image'],
+//       // price: json['price'],
+//       price: double.tryParse(json['price'].toString()) ?? 0.0,
+//       created_at: DateTime.tryParse(json['created_at'].toString()) ?? DateTime.now(),
+//       region: json['region'] ?? '',
+//       genre: json['genre'] ?? '',
 
-    );
-  }
-}
+//     );
+//   }
+// }
+
 
 List<String> genres = ['Fiction', 'Mystery', 'Fantasy', 'Sci-Fi', 'Romance', 'Horror', 'Thriller', 'Biography', 'History', 'Self-Help'];
 List<String> sorts = ['low to high', 'high to low', 'New In'];
