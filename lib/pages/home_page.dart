@@ -115,6 +115,7 @@ class _HomePageState extends State<HomePage> {
                     cardBuilder: (context, index, _, __) {
                       final book = books[index];
                       return Card(
+                        
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15),
                         ),
@@ -126,65 +127,59 @@ class _HomePageState extends State<HomePage> {
                                 child: Stack(children: [
                                   Image.network(
                                     book.imageUrl,
-                                    fit: BoxFit.cover,
+                                    fit: BoxFit.contain,
                                     errorBuilder:
                                         (context, error, stackTrace) =>
                                             const Icon(Icons.error),
                                   ),
-                                  // SizedBox(height: 100,),
-                                  // IconButton(onPressed: (){
-            
-                                  // }, icon: Icon(Icons.chat_bubble_outlined,size: 40,color: Colors.amber,)),
+
                                 ]),
                               ),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.all(5.0),
-                              child: Column(
-                                crossAxisAlignment:
-                                    CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        book.title,
-                                        style: const TextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      Column(
-                                        children: [
-                                          GestureDetector(
-                                            onTap: () {
-                                              Navigator.push(
-                                                context,
-                                                MaterialPageRoute(builder: (context) => UserChat(ownerName: book.owner,)), 
-                                                );
-                                              
-                                            },
-                                            child: Image(
-                                              image: AssetImage(
-                                                  'assets/img/chat.png'),
-                                              width: 40,
-                                            ),
+                            Column(
+                              crossAxisAlignment:
+                                  CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      book.title,
+                                      style: const TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    Column(
+                                      children: [
+                                        GestureDetector(
+                                          onTap: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(builder: (context) => UserChat(ownerName: book.owner,)), 
+                                              );
+                                            
+                                          },
+                                          child: Image(
+                                            image: AssetImage(
+                                                'assets/img/chat.png'),
+                                            width: 10,
                                           ),
-                                          Text("${book.owner}"),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                  Text('Author: ${book.author}'),
-                                  Text('Condition: ${book.condition}'),
-                                  Text('Price: ${book.price}'),
-                                  Text(
-                                    book.description,
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ],
-                              ),
+                                        ),
+                                        Text("${book.owner}"),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                Text('Author: ${book.author}'),
+                                Text('Condition: ${book.condition}'),
+                                Text('Price: ${book.price}'),
+                                Text(
+                                  book.description,
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ],
                             ),
                           ],
                         ),
@@ -193,7 +188,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(2.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [

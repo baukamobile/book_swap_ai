@@ -75,7 +75,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Future<void> getUserName() async {
     try {
       final response = await http.get(Uri.parse(
-        'https://peaceful-refuge-96948-e42c6be7d8b8.herokuapp.com/api/users/24/'
+        'https://peaceful-refuge-96948-e42c6be7d8b8.herokuapp.com/app/api/users/24/'
       ));
       
       if (response.statusCode == 200) {

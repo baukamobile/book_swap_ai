@@ -133,7 +133,7 @@ class _GeminiChatState extends State<GeminiChat> {
       ChatMessage chatMessage = ChatMessage(
         user: currentUser,
         createdAt: DateTime.now(),
-        text: "Describe this picture!",
+        text: "?",
         medias: [
           ChatMedia(
             url: file.path,
