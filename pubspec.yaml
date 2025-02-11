@@ -54,6 +54,7 @@ dependencies:
   flutter_launcher_icons: ^0.14.2
   dart_jsonwebtoken: ^2.14.2
   jwt_decoder: ^2.0.1
+  curved_navigation_bar: ^1.0.6
 
 #web socket
   

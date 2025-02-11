@@ -1,3 +1,4 @@
+import 'package:book_swap_ai/components/%20curved_bottom_bar.dart';
 import 'package:book_swap_ai/components/bottomnavbar.dart';
 import 'package:book_swap_ai/pages/add_book.dart';
 import 'package:book_swap_ai/pages/chatting.dart';
@@ -21,15 +22,11 @@ import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:http/http.dart' as http;
 void main() 
 async {
-
   Gemini.init(
   apiKey: GEMINI_API_KEY,
   );
-
   runApp(const MyApp());
 }
-
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -235,7 +232,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ],
             ),
-            bottomNavigationBar: Bottomnavbar(),
+            bottomNavigationBar: CurvedBottomNavBar(),
       ),
       
     );
