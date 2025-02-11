@@ -15,10 +15,11 @@ import 'package:flutter_gemini/flutter_gemini.dart';
 import 'dart:convert';
 import 'dart:math'; // Import for random selection
 import 'package:book_swap_ai/components/user_chat.dart';
-import 'package:book_swap_ai/pages/profile.dart';
+import 'package:book_swap_ai/pages/profile.dart' as ProfilePage;
 import 'package:flutter/material.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:http/http.dart' as http;
+import 'components/models/book_model.dart';
 void main() 
 async {
   Gemini.init(

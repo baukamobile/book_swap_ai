@@ -9,38 +9,6 @@ import 'package:http/http.dart' as http;
 
 import 'package:book_swap_ai/components/models/book_model.dart';
 
-//   class Book {
-//   final String title;
-//   final String author;
-//   final String description;
-//   final String condition;
-//   final String imageUrl;
-//   final String owner;
-//   final double price;
-
-//   Book({
-//     required this.title,
-//     required this.author,
-//     required this.description,
-//     required this.condition,
-//     required this.imageUrl,
-//     required this.owner,
-//     required this.price,
-//   });
-
-//   factory Book.fromJson(Map<String, dynamic> json) {
-//     return Book(
-//       title: json['title'],
-//       author: json['author'],
-//       description: json['description'],
-//       condition: json['condition'],
-//       imageUrl: json['image'],
-//       owner: json['owner']['name'],
-//       price: double.tryParse(json['price'].toString()) ?? 0.0,
-//     );
-//   }
-// }
-
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 

@@ -2,40 +2,13 @@ import 'package:book_swap_ai/components/bottomnavbar.dart';
 import 'package:book_swap_ai/main.dart';
 import 'package:book_swap_ai/pages/auth/login_page.dart';
 import 'package:book_swap_ai/pages/auth/register_page.dart';
+import 'package:book_swap_ai/components/models/book_model.dart';
 
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-class Book {
-  final String title;
-  final String author;
-  final String description;
-  final String condition;
-  final String imageUrl;
-  final String owner;
 
-  Book({
-    required this.title,
-    required this.author,
-    required this.description,
-    required this.condition,
-    required this.imageUrl,
-    required this.owner,
-  });
-
-
-  factory Book.fromJson(Map<String, dynamic> json) {
-    return Book(
-        title: json['title'],
-        author: json['author'],
-        description: json['description'],
-        condition: json['condition'],
-        imageUrl: json['image'],
-        // Image URL returned by API
-        owner: json['owner']['name']);
-  }
-}
 class User{
   final String name;
   final String email;
