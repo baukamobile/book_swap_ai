@@ -2,6 +2,9 @@ import 'dart:io';
 import 'package:book_swap_ai/themes/dark_mode.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+List<String> genres = ['Fiction', 'Mystery', 'Fantasy', 'Sci-Fi', 'Romance', 'Horror', 'Thriller', 'Biography', 'History', 'Self-Help'];
+List<String> cities = ['Astana', 'Almaty', 'Shymkent', 'Aktobe', 'Karagandy'];
+
 
 class AddBook extends StatefulWidget {
   const AddBook({super.key});
@@ -11,6 +14,10 @@ class AddBook extends StatefulWidget {
 }
 
 class _AddBookState extends State<AddBook> {
+
+
+   String dropdownValue = genres.first;
+  String dropdownValue3 = cities.first;
   File? _selectedImage;
   bool _isNew = true; // Book condition state
 
@@ -90,12 +97,32 @@ class _AddBookState extends State<AddBook> {
             const SizedBox(height: 10),
             TextField(
               maxLength: 10,
+              keyboardType: TextInputType.number,
               decoration: const InputDecoration(
+                
                 hintText: "Price",
                 enabledBorder: OutlineInputBorder(),
                 focusedBorder: OutlineInputBorder(),
               ),
             ),
+            _buildDropdown(
+                    value: dropdownValue3,
+                    icon: Icons.location_on,
+                    items: cities,
+                    onChanged: (value) => setState(() {
+                      dropdownValue3 = value!;
+
+                    }),
+                  ),
+                  _buildDropdown(
+                    value: dropdownValue,
+                    icon: Icons.arrow_downward,
+                    items: genres,
+                    onChanged: (value) => setState(() {
+                      dropdownValue = value!;
+
+                    }),
+                  ),
             const SizedBox(height: 10),
             TextField(
               maxLines: 5,
@@ -157,3 +184,25 @@ class _AddBookState extends State<AddBook> {
     }
   }
 }
+
+
+  Widget _buildDropdown({
+    required String value,
+    required IconData icon,
+    required List<String> items,
+    required ValueChanged<String?> onChanged,
+  }) {
+    return DropdownButton<String>(
+      value: value,
+      icon: Icon(icon),
+      elevation: 16,
+      style: const TextStyle(color: Colors.deepPurple),
+      onChanged: onChanged,
+      items: items.map<DropdownMenuItem<String>>((value) {
+        return DropdownMenuItem<String>(
+          value: value,
+          child: Text(value),
+        );
+      }).toList(),
+    );
+  }

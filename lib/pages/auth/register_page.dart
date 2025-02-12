@@ -3,7 +3,7 @@ import 'package:book_swap_ai/pages/auth/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-
+import 'package:book_swap_ai/consts.dart';
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
 
@@ -31,7 +31,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
   try {
     final response = await http.post(
-      Uri.parse('https://peaceful-refuge-96948-e42c6be7d8b8.herokuapp.com/app/api/register/'),
+      Uri.parse('$server/app/api/register/'),
       body: json.encode({
         'email': email,
         'name': name,

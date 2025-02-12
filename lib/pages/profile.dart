@@ -7,6 +7,7 @@ import 'package:book_swap_ai/components/models/book_model.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:book_swap_ai/consts.dart';
 
 
 class User{
@@ -48,7 +49,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Future<void> getUserName() async {
     try {
       final response = await http.get(Uri.parse(
-        'https://peaceful-refuge-96948-e42c6be7d8b8.herokuapp.com/app/api/users/24/'
+        '$server/app/api/users/24/'
       ));
       
       if (response.statusCode == 200) {
@@ -71,7 +72,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Future<void> fetchBooks() async {
     try {
       final response = await http.get(Uri.parse(
-          'https://peaceful-refuge-96948-e42c6be7d8b8.herokuapp.com/app/api/books/13/'));
+          '$server/app/api/books/13/'));
 
       if (response.statusCode == 200) {
         final Map<String, dynamic> data = json.decode(response.body);

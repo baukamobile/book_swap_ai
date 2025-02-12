@@ -35,12 +35,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: lightMode,
-      // theme: ThemeData(
-        
-      //     // scaffoldBackgroundColor: scaffoldBackgroundColor,
-      //     appBarTheme: AppBarTheme(
-      //       // color: cardColor,
-      //     )),
       home: HomePage(),
       // const GeminiChat(),
     );
@@ -73,7 +67,7 @@ class _HomePageState extends State<HomePage> {
   Future<void> fetchBooks() async {
     try {
       final response = await http.get(Uri.parse(
-          'https://peaceful-refuge-96948-e42c6be7d8b8.herokuapp.com/app/api/books/'));
+          '$server/app/api/books/'));
 
       if (response.statusCode == 200) {
         final List<dynamic> data = json.decode(response.body);

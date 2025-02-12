@@ -6,7 +6,7 @@ import 'package:book_swap_ai/themes/dark_mode.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:http/http.dart' as http;
-
+import 'package:book_swap_ai/consts.dart';
 import 'package:book_swap_ai/components/models/book_model.dart';
 
 class HomePage extends StatefulWidget {
@@ -36,7 +36,7 @@ class _HomePageState extends State<HomePage> {
   Future<void> fetchBooks() async {
     try {
       final response = await http.get(Uri.parse(
-          'https://peaceful-refuge-96948-e42c6be7d8b8.herokuapp.com/app/api/books/'));
+          '$server/app/api/books/'));
 
       if (response.statusCode == 200) {
         final List<dynamic> data = json.decode(response.body);

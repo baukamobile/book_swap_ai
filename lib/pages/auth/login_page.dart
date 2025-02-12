@@ -4,7 +4,7 @@ import 'package:book_swap_ai/pages/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-
+import 'package:book_swap_ai/consts.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -38,7 +38,7 @@ class _LoginPageState extends State<LoginPage> {
       'password': password,
     };
     final response = await http.post(
-      Uri.parse('https://peaceful-refuge-96948-e42c6be7d8b8.herokuapp.com/app/api/login/'),  // Replace with your Django API login URL
+      Uri.parse('$server/app/api/login/'),  // Replace with your Django API login URL
       headers: {'Content-Type': 'application/json'},
       body: json.encode(loginData),
     );
