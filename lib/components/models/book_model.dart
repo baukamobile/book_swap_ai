@@ -35,8 +35,8 @@ class Book {
       // price: json['price'],
       price: double.tryParse(json['price'].toString()) ?? 0.0,
       created_at: DateTime.tryParse(json['created_at'].toString()) ?? DateTime.now(),
-      region: json['region'] ?? '',
-      genre: json['genre'] ?? '',
+      region: json['region'],
+      genre: json['genre'],
       owner: json['owner']['name']
 
     );
