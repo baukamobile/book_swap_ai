@@ -57,6 +57,7 @@ dependencies:
   curved_navigation_bar: ^1.0.6
   path_provider: ^2.1.5
   json_annotation: ^4.9.0
+  draggable_home: ^1.0.5
 
 #web socket
   

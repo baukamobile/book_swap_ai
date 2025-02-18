@@ -25,7 +25,7 @@ class _AddBookState extends State<AddBook> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Add Book'),
+        title: const Text('Add Book',style: TextStyle(color: Colors.white),),
         centerTitle: true,
         backgroundColor: darkMode.colorScheme.primary,
       ),
@@ -60,7 +60,7 @@ class _AddBookState extends State<AddBook> {
                     style: TextStyle(color: Colors.white),
                   ),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.purple,
+                    backgroundColor: Colors.green,
                   ),
                 ),
                 ElevatedButton.icon(
@@ -71,7 +71,7 @@ class _AddBookState extends State<AddBook> {
                     style: TextStyle(color: Colors.white),
                   ),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.purple,
+                    backgroundColor: Colors.green,
                   ),
                 ),
               ],
@@ -152,7 +152,7 @@ class _AddBookState extends State<AddBook> {
             Container(
               width: 150,
               height: 90,
-              color: Colors.purple,
+              color: Colors.green,
               child: const Center(
                 child: Text(
                   "Publish",

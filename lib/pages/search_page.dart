@@ -6,6 +6,7 @@ import 'package:book_swap_ai/pages/chatting.dart';
 import 'package:http/http.dart' as http;
 import 'package:book_swap_ai/components/models/book_model.dart';
 import 'package:book_swap_ai/consts.dart';
+import 'package:draggable_home/draggable_home.dart';
 
 List<String> genres = ['Fiction', 'Mystery', 'Fantasy', 'Sci-Fi', 'Romance', 'Horror', 'Thriller', 'Biography', 'History', 'Self-Help'];
 List<String> sorts = ['low to high', 'high to low', 'New In'];
@@ -105,13 +106,12 @@ void sortBooksByGenre(){
                 children: [
                   _buildDropdown(
                   value: dropdownValue2,
-                  icon: Icons.sort,
+                  icon: Icons.sort,                  
                   items: sorts,
                   onChanged: (value) => setState(() {
                     dropdownValue2 = value!;
                     setState(() {
-                      // books = allBooks.take(randomCount).toList();
-                      sortBooksByPrice();  // <-- После загрузки сортируем
+                      sortBooksByPrice();  
                       });}),
 
                   ),

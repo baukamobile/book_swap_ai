@@ -62,9 +62,9 @@ class _HomePageState extends State<HomePage> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Books'),
+          title: Text('Books',style: TextStyle(color: Colors.white),),
           centerTitle: true,
-          backgroundColor: darkMode.colorScheme.inversePrimary,
+          backgroundColor: Colors.green,
         ),
 
         // appBar: AppBar(
