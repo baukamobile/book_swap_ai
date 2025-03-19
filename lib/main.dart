@@ -5,11 +5,12 @@ import 'package:book_swap_ai/pages/chatting.dart';
 import 'package:book_swap_ai/themes/dark_mode.dart';
 import 'package:book_swap_ai/themes/light_mode.dart';
 import 'package:flutter/material.dart';
+// import 'consts.dart';
+import 'package:book_swap_ai/consts.dart';
 import 'package:book_swap_ai/pages/auth/login_page.dart';
 import 'package:book_swap_ai/pages/auth/register_page.dart';
 import 'package:book_swap_ai/pages/chat_page.dart';
 import 'package:book_swap_ai/pages/profile.dart';
-import 'consts.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
 import 'dart:convert';
@@ -23,8 +24,7 @@ import 'components/models/book_model.dart';
 void main() 
 async {
   Gemini.init(
-  apiKey: GEMINI_API_KEY,
-  );
+   apiKey: GEMINI_API_KEY);
   runApp(const MyApp());
 }
 class MyApp extends StatelessWidget {
