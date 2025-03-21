@@ -23,6 +23,7 @@ import 'package:http/http.dart' as http;
 import 'components/models/book_model.dart';
 void main() 
 async {
+  await dotenv.load(fileName: 'assets/.env');
   Gemini.init(
    apiKey: GEMINI_API_KEY);
   runApp(const MyApp());

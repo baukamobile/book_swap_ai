@@ -1,6 +1,7 @@
 import 'package:book_swap_ai/components/chat_with_them.dart';
 import 'package:book_swap_ai/components/models/chat_screen.dart';
 import 'package:book_swap_ai/pages/chatting.dart';
+import 'package:book_swap_ai/pages/gemini_chat.dart';
 import 'package:flutter/material.dart';
 class ChatPage extends StatefulWidget {
   const ChatPage({super.key});
@@ -41,7 +42,7 @@ class _ChatPageState extends State<ChatPage> {
                     width: 50,
                     height: 50,
                     child: InkWell(
-                      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context)=>GeminiChat())),
+                      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context)=>GeminiChatPage())),
                       child: Image.asset('assets/img/ai.jpg',width: 30,)),
                   ),
                 ],

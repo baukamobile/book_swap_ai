@@ -58,6 +58,7 @@ dependencies:
   path_provider: ^2.1.5
   json_annotation: ^4.9.0
   draggable_home: ^1.0.5
+  google_generative_ai: ^0.4.6
 
 #web socket
   
@@ -107,6 +108,7 @@ flutter:
     - assets/img/logo2.jpg
     - assets/img/logo3.png
     - assets/img/chat.png
+    - assets/.env
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

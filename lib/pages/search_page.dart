@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:math';
+import 'package:book_swap_ai/pages/gemini_chat.dart';
 import 'package:book_swap_ai/themes/dark_mode.dart';
 import 'package:flutter/material.dart';
 import 'package:book_swap_ai/pages/chatting.dart';
@@ -136,7 +137,7 @@ void sortBooksByGenre(){
                   InkWell(
                     onTap: () => Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => GeminiChat()),
+                      MaterialPageRoute(builder: (context) => GeminiChatPage()),
                     ),
                     child: Image.asset('assets/img/ai.jpg', width: 40),
                   ),
