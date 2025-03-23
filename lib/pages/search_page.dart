@@ -9,7 +9,8 @@ import 'package:book_swap_ai/components/models/book_model.dart';
 import 'package:book_swap_ai/consts.dart';
 import 'package:draggable_home/draggable_home.dart';
 
-List<String> genres = ['Fiction', 'Mystery', 'Fantasy', 'Sci-Fi', 'Romance', 'Horror', 'Thriller', 'Biography', 'History', 'Self-Help'];
+List<String> genres = ['Fiction', 'Mystery', 'Fantasy', 'Sci-Fi', 
+'Romance', 'Horror', 'Thriller', 'Biography', 'History', 'Self-Help'];
 List<String> sorts = ['low to high', 'high to low', 'New In'];
 List<String> cities = ['Astana', 'Almaty', 'Shymkent', 'Aktobe', 'Karagandy'];
 
@@ -38,7 +39,8 @@ class _SearchPageState extends State<SearchPage> {
 }
 void sortBooksByRegion() {
   setState(() {
-    books = books.where((book) => book.region == dropdownValue3 || book.region.isEmpty).toList();
+    books = books.where((book) 
+    => book.region == dropdownValue3 || book.region.isEmpty).toList();
   });
 }
 void sortBooksByGenre(){

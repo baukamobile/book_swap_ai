@@ -37,6 +37,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: lightMode,
       home: HomePage(),
+      
       // const GeminiChat(),
     );
   }
